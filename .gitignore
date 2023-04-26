@@ -2,3 +2,4 @@
 .eslintrc.json
 /dist
 /.parcel-cache
+.eslintcache
