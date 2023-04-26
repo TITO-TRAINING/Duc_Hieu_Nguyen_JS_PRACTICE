@@ -1,11 +1,26 @@
 {
+  "name": "h1-app",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build",
+    "prepare": "husky install", 
+    "pre-commit": "lint-staged"
+  },
   "devDependencies": {
-    "eslint": "^8.38.0",
-    "eslint-config-standard": "^17.0.0",
+    "eslint": "^8.39.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.7.0",
-    "eslint-plugin-promise": "^6.1.1",
     "husky": "^8.0.3",
-    "parcel": "^2.8.3"
-  }
+    "lint-staged": "^13.2.2",
+    "parcel": "^2.8.3",
+    "posthtml-doctype": "^1.1.1",
+    "posthtml-include": "^1.7.4",
+    "prettier": "2.8.8"
+  },
+  "lint-staged": {
+    "src/**/*.{js}": "eslint --cache --fix",
+    "src/**/*.{js,scss,md}": "prettier --write --ignore-unknown"
+}
 }
