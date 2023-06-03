@@ -29,7 +29,7 @@
 
 ## HOW TO RUN
 
-- Dillinger requires Node.js v10+ to run.
+- Dillinger requires Node.js v18+ to run.
 - Install the dependencies and devDependencies and start the server.
 
 ```

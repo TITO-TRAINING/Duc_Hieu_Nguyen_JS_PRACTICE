@@ -1,6 +1,6 @@
 {
   "name": "h1-app",
-  "source": "src/index.html",
+  "source": "src/resources/index.html",
   "scripts": {
     "start": "parcel",
     "build": "parcel build",
