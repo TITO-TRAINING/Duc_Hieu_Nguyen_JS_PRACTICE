@@ -22,5 +22,5 @@
   "lint-staged": {
     "src/**/*.{js}": "eslint --cache --fix",
     "src/**/*.{js,scss,md}": "prettier --write --ignore-unknown"
-}
+  }
 }

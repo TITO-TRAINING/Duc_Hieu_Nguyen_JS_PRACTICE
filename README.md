@@ -4,7 +4,7 @@
 
 ## TIMELINE:
 
-- 2 week (Apr 20 - May 4)
+- Apr 20 - May 
 
 ## TARGET:
 
@@ -17,11 +17,8 @@
 - HTML5/CSS3
 - JavaScript
 - Parcel
-- MVC
+- MVCS
 
-## WEB DESIGN:
-
-- Later
 
 ## SOURCE CODE
 
@@ -33,7 +30,8 @@
 - Install the dependencies and devDependencies and start the server.
 
 ```
-$npm install --save-dev parcel
+$npm i
 $npm start
+
 Open on web: http://localhost:1234
 ```
