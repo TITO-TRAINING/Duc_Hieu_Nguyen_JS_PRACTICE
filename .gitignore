@@ -3,3 +3,4 @@
 .eslintcache
 /dist
 /.parcel-cache
+/.husky
