@@ -1,7 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 class Book {
   constructor(
-    { title, author, category, status, number, price, check } = { check: false }
+    { title, author, category, status, number, price, check } = {
+      check: false,
+    },
   ) {
     this.id = this.generateID();
     this.title = title;
