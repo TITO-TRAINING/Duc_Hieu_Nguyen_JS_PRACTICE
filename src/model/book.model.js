@@ -5,7 +5,7 @@ class Book {
       check: false,
     },
   ) {
-    this.id = this.generateID;
+    this.id = this.generateID();
     this.title = title;
     this.author = author;
     this.category = category;
