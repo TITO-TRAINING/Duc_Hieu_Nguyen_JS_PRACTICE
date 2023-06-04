@@ -5,7 +5,7 @@ class Book {
       check: false,
     },
   ) {
-    this.id = this.generateID();
+    this.id = this.generateID;
     this.title = title;
     this.author = author;
     this.category = category;
@@ -15,8 +15,8 @@ class Book {
     this.check = check;
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  generateID(length = 4) {
+
+  static generateID(length = 4) {
     return Math.random()
       .toString(36)
       .substring(2, length + 2);
