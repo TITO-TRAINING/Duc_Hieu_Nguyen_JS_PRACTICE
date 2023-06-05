@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-unused-vars
+
 class Book {
   constructor(
     { title, author, category, status, number, price, check } = {
@@ -22,3 +22,5 @@ class Book {
       .substring(2, length + 2);
   }
 }
+
+export default Book;
