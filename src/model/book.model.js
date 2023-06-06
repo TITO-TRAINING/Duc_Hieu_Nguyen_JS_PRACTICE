@@ -1,0 +1,26 @@
+
+class Book {
+  constructor(
+    { title, author, category, status, number, price, check } = {
+      check: false,
+    },
+  ) {
+    this.id = this.generateID();
+    this.title = title;
+    this.author = author;
+    this.category = category;
+    this.status = status;
+    this.number = number;
+    this.price = price;
+    this.check = check;
+  }
+
+
+  static generateID(length = 4) {
+    return Math.random()
+      .toString(36)
+      .substring(2, length + 2);
+  }
+}
+
+export default Book;
