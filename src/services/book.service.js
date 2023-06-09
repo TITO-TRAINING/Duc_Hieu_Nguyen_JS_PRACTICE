@@ -22,10 +22,12 @@ class BookService {
 
   edit(_id, newBook) {
     this.users = this.users.map(book => book.id === _id ? new Book({...book, ...newBook}) : book)
+    this.commit()
   }
 
   switchStatus(_id) {
     this.users = this.users.map(book => book.id === _id ? new Book({...book, status: !book.status}) : book)
+    this.commit()
   }
 }
 
