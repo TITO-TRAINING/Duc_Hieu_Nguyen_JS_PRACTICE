@@ -1,4 +1,4 @@
-function BookItem({ id = null, title, category, status, number, price }) {
+function BookItem({ id, title, category, status, number, price }) {
   return `
   <tr>
     <td>${id}</td>

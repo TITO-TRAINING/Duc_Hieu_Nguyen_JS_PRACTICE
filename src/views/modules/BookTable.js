@@ -14,7 +14,7 @@ function BookTable() {
             <th>Delete</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="book-list">
 
       </tbody>
     </table>
