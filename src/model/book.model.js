@@ -1,3 +1,4 @@
+import generateID from '../helper/uid';
 
 class Book {
   constructor(
@@ -5,7 +6,7 @@ class Book {
       check: false,
     },
   ) {
-    this.id = this.generateID();
+    this.id = generateID();
     this.title = title;
     this.author = author;
     this.category = category;
@@ -13,13 +14,6 @@ class Book {
     this.number = number;
     this.price = price;
     this.check = check;
-  }
-
-
-  static generateID(length = 4) {
-    return Math.random()
-      .toString(36)
-      .substring(2, length + 2);
   }
 }
 
