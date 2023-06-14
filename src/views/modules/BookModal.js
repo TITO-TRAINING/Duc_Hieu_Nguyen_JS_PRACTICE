@@ -4,12 +4,12 @@ function BookModal({
   author = null,
   category = null,
   status = false,
-  number = null,
-  price = null,
+  number = 0,
+  price = 0.0,
 }) {
   return `
     <div class="modal hidden">
-      <div class="close-btn">
+      <div id="close-btn">
         <i class="ti-close"></i>
       </div>
       <form class="book-form">
@@ -63,7 +63,7 @@ function BookModal({
         type="number"
         name="book-number"
         id="book-number"
-        value="${number || ''}"
+        value="${number}"
         >
 
         <label for="book-price">Price</label>
@@ -71,7 +71,7 @@ function BookModal({
         type="text"
         name="book-price"
         id="book-price"
-        value="${price || ''}"
+        value="${price}"
         >
 
         <button class="save-btn">Save</button>
