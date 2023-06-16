@@ -12,13 +12,15 @@ function BookModal({
       <div id="close-btn">
         <i class="ti-close"></i>
       </div>
-      <form class="book-form">
+      <form class="book-form" action="javascript:void(0)">
         <input type="hidden" id="book-id" value="${id}">
         <label for="book-title">Title</label>
         <input
         type="text"
         name="book-title"
         id="book-title"
+        required
+        maxlength="50"
         value="${title || ''}"
         >
 
@@ -27,6 +29,7 @@ function BookModal({
         type="text"
         name="book-author"
         id="book-author"
+        required
         value="${author || ''}"
         >
 
@@ -43,7 +46,7 @@ function BookModal({
           <input
           ${status ? 'checked' : ''}
           type="radio"
-          name="book-category"
+          name="book-status"
           value="active" id="active"
           class="status-btn active-btn">
 
@@ -51,7 +54,7 @@ function BookModal({
           <input
           ${!status ? 'checked' : ''}
           type="radio"
-          name="book-category"
+          name="book-status"
           value="inactive"
           id="inactive"
           class="status-btn inactive-btn">
@@ -63,18 +66,21 @@ function BookModal({
         type="number"
         name="book-number"
         id="book-number"
+        min="0"
         value="${number}"
         >
 
         <label for="book-price">Price</label>
         <input
-        type="text"
+        type="number"
         name="book-price"
         id="book-price"
+        step="any"
+        min="0"
         value="${price}"
         >
 
-        <button class="save-btn">Save</button>
+        <button class="save-btn" type="submit">Save</button>
       </form>
     </div>`;
 }

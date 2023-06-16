@@ -2,6 +2,11 @@ import BookTable from './modules/BookTable';
 import ActionBar from './modules/ActionBar';
 import BookModal from './modules/BookModal';
 import BookItem from './modules/BookItem';
+import {
+  authorValidate,
+  numberValidate,
+  titleValidate,
+} from '../helper/formValidate';
 
 class BookView {
   constructor() {
@@ -19,13 +24,41 @@ class BookView {
     this.table = document.querySelector('.book-list');
 
     // handel toggle modal
-    this.modal = document.querySelector('.modal');
-    this.closeModal = document.querySelector('#close-btn');
-    this.openModal = document.querySelector('#add-btn');
+    this.modal = this.app.querySelector('.modal');
+    this.closeModal = this.app.querySelector('#close-btn');
+    this.openModal = this.app.querySelector('#add-btn');
     this.closeModal.addEventListener('click', () => this.toggleModal());
     this.openModal.addEventListener('click', () => this.toggleModal());
 
     this.form = document.querySelector('.book-form');
+    titleValidate(this.form, 'book-title');
+    authorValidate(this.form, 'book-author');
+    numberValidate(this.form, 'book-number');
+    numberValidate(this.form, 'book-price');
+
+    this.add = this.form.querySelector('.save-btn');
+    this.add.addEventListener('click', () => console.log(this.formData));
+  }
+
+  get formData() {
+    const bTitle = this.form.querySelector('input[name="book-title"]').value;
+    const bAuthor = this.form.querySelector('input[name="book-author"]').value;
+    const bCategory = this.form.querySelector(
+      'input[name="book-category"]',
+    ).value;
+    const bStatus =
+      this.form.querySelector('input[name="book-status"]').value === 'active';
+    const bNumber = this.form.querySelector('input[name="book-number"]').value;
+    const bPrice = this.form.querySelector('input[name="book-price"]').value;
+
+    return {
+      title: bTitle,
+      author: bAuthor,
+      category: bCategory,
+      status: bStatus,
+      number: parseInt(bNumber, 10),
+      price: parseFloat(bPrice),
+    };
   }
 
   displayData(books) {
@@ -43,6 +76,13 @@ class BookView {
         this.table.innerHTML += BookItem(book);
       });
     }
+  }
+
+  bindAddBook(handel) {
+    this.form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handel(this.formData);
+    });
   }
 
   toggleModal() {
