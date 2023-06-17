@@ -2,11 +2,7 @@ import BookTable from './modules/BookTable';
 import ActionBar from './modules/ActionBar';
 import BookModal from './modules/BookModal';
 import BookItem from './modules/BookItem';
-import {
-  authorValidate,
-  numberValidate,
-  titleValidate,
-} from '../helper/formValidate';
+import inputValidate from '../helper/formValidate';
 
 class BookView {
   constructor() {
@@ -31,13 +27,10 @@ class BookView {
     this.openModal.addEventListener('click', () => this.toggleModal());
 
     this.form = document.querySelector('.book-form');
-    titleValidate(this.form, 'book-title');
-    authorValidate(this.form, 'book-author');
-    numberValidate(this.form, 'book-number');
-    numberValidate(this.form, 'book-price');
-
-    this.add = this.form.querySelector('.save-btn');
-    this.add.addEventListener('click', () => console.log(this.formData));
+    inputValidate(this.form, 'book-title', 'Title');
+    inputValidate(this.form, 'book-author', 'Author');
+    inputValidate(this.form, 'book-number', 'Quantity');
+    inputValidate(this.form, 'book-price', 'Price');
   }
 
   get formData() {
