@@ -81,6 +81,7 @@ function BookModal({
         >
 
         <button class="save-btn" type="submit">Save</button>
+        <button class="update-btn hidden">Update</button>
       </form>
     </div>`;
 }

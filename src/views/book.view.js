@@ -33,6 +33,14 @@ class BookView {
     inputValidate(this.form, 'book-price', 'Price');
   }
 
+  get idModal() {
+    return this.form.querySelector('#book-id').value;
+  }
+
+  set idModal(id) {
+    this.form.querySelector('#book-id').value = id;
+  }
+
   get formData() {
     const bTitle = this.form.querySelector('input[name="book-title"]').value;
     const bAuthor = this.form.querySelector('input[name="book-author"]').value;
@@ -52,6 +60,21 @@ class BookView {
       number: parseInt(bNumber, 10),
       price: parseFloat(bPrice),
     };
+  }
+
+  set formData({ id, title, author, category, status, number, price }) {
+    this.form.querySelector('#book-id').value = id;
+    this.form.querySelector('input[name="book-title"]').value = title;
+    this.form.querySelector('input[name="book-author"]').value = author;
+    this.form.querySelector('input[name="book-category"]').value = category;
+    this.form.querySelector(
+      `input[name="book-status"][value="active"]`,
+    ).checked = status;
+    this.form.querySelector(
+      `input[name="book-status"][value="inactive"]`,
+    ).checked = !status;
+    this.form.querySelector('input[name="book-number"]').value = number;
+    this.form.querySelector('input[name="book-price"]').value = price;
   }
 
   displayData(books) {
@@ -75,6 +98,61 @@ class BookView {
     this.form.addEventListener('submit', (e) => {
       e.preventDefault();
       handel(this.formData);
+    });
+  }
+
+  bindDeleteBook(handel) {
+    const btn = this.table.querySelectorAll('.btn-delete');
+    let id;
+    btn.forEach((node) =>
+      node.addEventListener('click', (e) => {
+        if (e.target.nodeName === 'BUTTON')
+          id = e.target.getAttribute('data-id');
+        else id = e.target.parentNode.getAttribute('data-id');
+        handel(id);
+      }),
+    );
+  }
+
+  bindUpdateModal() {
+    const btn = this.table.querySelectorAll('.btn-edit');
+    let id;
+    btn.forEach((node) =>
+      node.addEventListener('click', (e) => {
+        if (e.target.nodeName === 'BUTTON')
+          id = e.target.getAttribute('data-id');
+        else id = e.target.parentNode.getAttribute('data-id');
+
+        this.idModal = id;
+        const data = e.target.closest('tr').querySelectorAll('td');
+        this.formData = {
+          id: data[0].textContent,
+          title: data[1].textContent,
+          author: data[2].textContent,
+          category: data[3].textContent,
+          status: data[4].firstElementChild.classList.contains('active'),
+          number: data[5].textContent,
+          price: data[6].textContent,
+        };
+      }),
+    );
+  }
+
+  bindToggleStatus(handel) {
+    const btn = this.table.querySelectorAll('.status-btn');
+    let id;
+    btn.forEach((node) =>
+      node.addEventListener('click', (e) => {
+        id = e.target.getAttribute('data-id');
+        handel(id);
+      }),
+    );
+  }
+
+  bindSearch(handel) {
+    const input = this.container.querySelector('#search-box');
+    input.addEventListener('change', (e) => {
+      handel(e.target.value);
     });
   }
 
