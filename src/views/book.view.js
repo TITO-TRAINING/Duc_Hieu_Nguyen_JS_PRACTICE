@@ -62,7 +62,15 @@ class BookView {
     };
   }
 
-  set formData({ id, title, author, category, status, number, price }) {
+  set formData({
+    id = '',
+    title = '',
+    author = '',
+    category = '',
+    status = false,
+    number = 0,
+    price = 0,
+  }) {
     this.form.querySelector('#book-id').value = id;
     this.form.querySelector('input[name="book-title"]').value = title;
     this.form.querySelector('input[name="book-author"]').value = author;
@@ -98,6 +106,7 @@ class BookView {
     this.form.addEventListener('submit', (e) => {
       e.preventDefault();
       handel(this.formData);
+      this.formData = {};
     });
   }
 
@@ -114,6 +123,16 @@ class BookView {
     );
   }
 
+  bindUpdateBook(handel) {
+    const btn = this.modal.querySelector('.update-btn');
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      handel(this.idModal, this.formData);
+      this.toggleModal();
+      this.formData = {};
+    });
+  }
+
   bindUpdateModal() {
     const btn = this.table.querySelectorAll('.btn-edit');
     let id;
@@ -123,6 +142,7 @@ class BookView {
           id = e.target.getAttribute('data-id');
         else id = e.target.parentNode.getAttribute('data-id');
 
+        this.toggleModal();
         this.idModal = id;
         const data = e.target.closest('tr').querySelectorAll('td');
         this.formData = {
