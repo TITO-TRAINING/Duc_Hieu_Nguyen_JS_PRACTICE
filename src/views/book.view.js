@@ -171,7 +171,7 @@ class BookView {
 
   bindSearch(handel) {
     const input = this.container.querySelector('#search-box');
-    input.addEventListener('change', (e) => {
+    input.addEventListener('input', (e) => {
       handel(e.target.value);
     });
   }
