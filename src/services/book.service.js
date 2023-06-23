@@ -32,6 +32,10 @@ class BookService {
     this.commit(this.books);
   }
 
+  search(key) {
+    const temp = this.books.filter((book) => book.title.includes(key));
+  }
+
   switchStatus(_id) {
     this.books = this.books.map((book) =>
       book.id === _id ? new Book({ ...book, status: !book.status }) : book,
