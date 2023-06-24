@@ -111,16 +111,13 @@ class BookView {
   }
 
   bindDeleteBook(handel) {
-    const btn = this.table.querySelectorAll('.btn-delete');
     let id;
-    btn.forEach((node) =>
-      node.addEventListener('click', (e) => {
-        if (e.target.nodeName === 'BUTTON')
-          id = e.target.getAttribute('data-id');
-        else id = e.target.parentNode.getAttribute('data-id');
+    this.table.addEventListener('click', (e) => {
+      if (e.target.closest('.btn-delete')) {
+        id = e.target.closest('.btn-delete').dataset.id;
         handel(id);
-      }),
-    );
+      }
+    });
   }
 
   bindUpdateBook(handel) {
@@ -134,16 +131,13 @@ class BookView {
   }
 
   bindUpdateModal() {
-    const btn = this.table.querySelectorAll('.btn-edit');
     let id;
-    btn.forEach((node) =>
-      node.addEventListener('click', (e) => {
-        if (e.target.nodeName === 'BUTTON')
-          id = e.target.getAttribute('data-id');
-        else id = e.target.parentNode.getAttribute('data-id');
-
+    this.table.addEventListener('click', (e) => {
+      if (e.target.closest('.btn-edit')) {
+        id = e.target.closest('.btn-edit').dataset.id;
         this.toggleModal();
         this.idModal = id;
+
         const data = e.target.closest('tr').querySelectorAll('td');
         this.formData = {
           id: data[0].textContent,
@@ -154,19 +148,18 @@ class BookView {
           number: data[5].textContent,
           price: data[6].textContent,
         };
-      }),
-    );
+      }
+    });
   }
 
   bindToggleStatus(handel) {
-    const btn = this.table.querySelectorAll('.status-btn');
     let id;
-    btn.forEach((node) =>
-      node.addEventListener('click', (e) => {
+    this.table.addEventListener('click', (e) => {
+      if (e.target.classList.contains('status-btn')) {
         id = e.target.getAttribute('data-id');
         handel(id);
-      }),
-    );
+      }
+    });
   }
 
   bindSearch(handel) {
