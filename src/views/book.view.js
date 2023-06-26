@@ -3,28 +3,28 @@ import ActionBar from './modules/ActionBar';
 import BookModal from './modules/BookModal';
 import BookItem from './modules/BookItem';
 import inputValidate from '../helper/formValidate';
+import { createToast, removeToast } from './components/handleToast';
 
 class BookView {
   constructor() {
     this.app = document.querySelector('#root');
-    this.app.innerHTML = BookModal({});
+    this.app.innerHTML += BookModal({});
 
     this.container = document.createElement('div');
     this.container.classList.add('container');
-    this.container.innerHTML = ActionBar();
+    // add toast container
+    this.toastList = document.createElement('ul');
+    this.toastList.classList.add('notifications');
+
+    this.container.appendChild(this.toastList);
+    this.container.innerHTML += ActionBar();
     this.container.innerHTML += BookTable();
 
     // add modules
-    this.app.append(this.container);
+    this.app.appendChild(this.container);
 
-    this.table = document.querySelector('.book-list');
-
-    // handel toggle modal
     this.modal = this.app.querySelector('.modal');
-    this.closeModal = this.app.querySelector('#close-btn');
-    this.openModal = this.app.querySelector('#add-btn');
-    this.closeModal.addEventListener('click', () => this.toggleModal());
-    this.openModal.addEventListener('click', () => this.toggleModal());
+    this.table = document.querySelector('.book-list');
 
     this.form = document.querySelector('.book-form');
     inputValidate(this.form, 'book-title', 'Title');
@@ -91,10 +91,7 @@ class BookView {
     }
 
     if (books.length === 0) {
-      const p = document.createElement('p');
-      p.classList.add('notify');
-      p.textContent = "Your data is empty! Let's add something !";
-      this.container.append(p);
+      createToast('info', 'Your data is empty !');
     } else {
       books.forEach((book) => {
         this.table.innerHTML += BookItem(book);
@@ -164,15 +161,36 @@ class BookView {
 
   bindSearch(handel) {
     const input = this.container.querySelector('#search-box');
-    input.addEventListener('input', (e) => {
-      handel(e.target.value);
+    input.addEventListener('keypress', (e) => {
+      if (e.keyCode === 13) handel(e.target.value);
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.keyCode === 46 || e.keyCode === 8) handel('');
     });
   }
 
-  toggleModal() {
-    if (this.modal.classList.contains('hidden')) {
-      this.modal.classList.remove('hidden');
-    } else this.modal.classList.add('hidden');
+  handelToggleModal() {
+    const closeModal = this.app.querySelector('#close-btn');
+    const openModal = this.app.querySelector('#add-btn');
+    openModal.addEventListener('click', () => {
+      if (this.modal.classList.contains('hidden')) {
+        this.modal.classList.remove('hidden');
+      }
+      createToast('info', 'You got em');
+    });
+    closeModal.addEventListener('click', () => {
+      this.modal.classList.add('hidden');
+    });
+  }
+
+  bindCloseToast() {
+    const toast = this.container.querySelector('.notifications');
+    toast.addEventListener('click', (e) => {
+      if (e.target.classList.contains('ti-close')) {
+        removeToast(e.target.parentNode);
+      }
+    });
   }
 }
 
