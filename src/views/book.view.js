@@ -177,7 +177,6 @@ class BookView {
       if (this.modal.classList.contains('hidden')) {
         this.modal.classList.remove('hidden');
       }
-      createToast('info', 'You got em');
     });
     closeModal.addEventListener('click', () => {
       this.modal.classList.add('hidden');
