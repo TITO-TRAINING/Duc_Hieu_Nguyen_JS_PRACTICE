@@ -16,5 +16,5 @@ export const createToast = (
   toast.className = `toast ${type}`;
   toast.innerHTML = Toast(type, msg);
   toastList.appendChild(toast);
-  toast.timeoutId = setTimeout(() => removeToast(toast), 5000);
+  toast.timeoutId = setTimeout(() => removeToast(toast), 3000);
 };
