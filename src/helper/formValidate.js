@@ -1,14 +1,5 @@
 import { createToast } from '../views/components/handleToast';
 
-/*
-Validate input (2 section)
-
-  1. Check value:
-    a. query all input, get value => check regex : return true|| false
-  2. Handle input:
-    a. before return: catch blur and focus event (add class to handle css `.invalid` & make toast)
-
-*/
 const inputValidationRules = {
   'book-title': /^[a-zA-Z0-9][a-zA-Z0-9\s]{0,98}[a-zA-Z0-9]$/,
   'book-author': /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/,
