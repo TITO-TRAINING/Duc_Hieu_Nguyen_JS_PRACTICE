@@ -19,8 +19,7 @@ function BookModal({
         type="text"
         name="book-title"
         id="book-title"
-        required
-        maxlength="50"
+        maxlength="100"
         value="${title || ''}"
         >
 
@@ -29,7 +28,7 @@ function BookModal({
         type="text"
         name="book-author"
         id="book-author"
-        required
+        maxlength="50"
         value="${author || ''}"
         >
 
@@ -38,6 +37,7 @@ function BookModal({
         type="text"
         name="book-category"
         id="book-category"
+        maxlength="30"
         value="${category || ''}"
         >
 
@@ -66,7 +66,7 @@ function BookModal({
         type="number"
         name="book-number"
         id="book-number"
-        min="0"
+        min="1"
         value="${number}"
         >
 
@@ -76,7 +76,7 @@ function BookModal({
         name="book-price"
         id="book-price"
         step="any"
-        min="0"
+        min="1"
         value="${price}"
         >
 

@@ -2,8 +2,8 @@ import BookTable from './modules/BookTable';
 import ActionBar from './modules/ActionBar';
 import BookModal from './modules/BookModal';
 import BookItem from './modules/BookItem';
-import inputValidate from '../helper/formValidate';
 import { createToast, removeToast } from './components/handleToast';
+import validate from '../helper/formValidate';
 
 class BookView {
   constructor() {
@@ -27,10 +27,7 @@ class BookView {
     this.table = document.querySelector('.book-list');
 
     this.form = document.querySelector('.book-form');
-    inputValidate(this.form, 'book-title', 'Title');
-    inputValidate(this.form, 'book-author', 'Author');
-    inputValidate(this.form, 'book-number', 'Quantity');
-    inputValidate(this.form, 'book-price', 'Price');
+    validate(this.form);
   }
 
   get idModal() {
@@ -99,11 +96,19 @@ class BookView {
     }
   }
 
+  checkValidForm() {
+    const inputs = [...this.form.querySelectorAll('input')];
+    return !inputs.some((input) => input.classList.contains('invalid'));
+  }
+
   bindAddBook(handel) {
     this.form.addEventListener('submit', (e) => {
       e.preventDefault();
-      handel(this.formData);
-      this.formData = {};
+      if (this.checkValidForm()) {
+        handel(this.formData);
+        this.formData = {};
+        createToast('info', 'Insert Success: Your data has been inserted!');
+      } else createToast('warning', 'Insert Failed: Check your data!');
     });
   }
 
@@ -113,6 +118,7 @@ class BookView {
       if (e.target.closest('.btn-delete')) {
         id = e.target.closest('.btn-delete').dataset.id;
         handel(id);
+        createToast('info', 'Delete Success: Your data has been deleted!');
       }
     });
   }
@@ -121,10 +127,21 @@ class BookView {
     const btn = this.modal.querySelector('.update-btn');
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      handel(this.idModal, this.formData);
-      this.toggleModal();
-      this.formData = {};
+      if (this.checkValidForm()) {
+        handel(this.idModal, this.formData);
+        this.toggleModal(false);
+        createToast('info', 'Update Success: Your data has been updated!');
+        this.formData = {};
+      } else createToast('warning', 'Update Failed: Check your data!');
     });
+  }
+
+  toggleModal(open = true) {
+    if (this.modal.classList.contains('hidden') && open) {
+      this.modal.classList.remove('hidden');
+    } else if (!open) {
+      this.modal.classList.add('hidden');
+    }
   }
 
   bindUpdateModal() {
@@ -132,7 +149,7 @@ class BookView {
     this.table.addEventListener('click', (e) => {
       if (e.target.closest('.btn-edit')) {
         id = e.target.closest('.btn-edit').dataset.id;
-        this.toggleModal();
+        this.toggleModal(true);
         this.idModal = id;
 
         const data = e.target.closest('tr').querySelectorAll('td');
@@ -180,6 +197,7 @@ class BookView {
     });
     closeModal.addEventListener('click', () => {
       this.modal.classList.add('hidden');
+      this.formData = {};
     });
   }
 
