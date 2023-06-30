@@ -1,0 +1,108 @@
+@use '../abstracts' as *;
+.notifications {
+  position: fixed;
+  top: 30px;
+  right: 20px;
+}
+.notifications :where(.toast, .column) {
+  display: flex;
+  align-items: center;
+}
+.notifications .toast {
+  width: 300px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  padding: 16px 17px;
+  margin-bottom: 10px;
+  background: $btn-light;
+  justify-content: space-between;
+  animation: show_toast 0.3s ease forwards;
+}
+@keyframes show_toast {
+  0% {
+    transform: translateX(100%);
+  }
+  40% {
+    transform: translateX(-5%);
+  }
+  80% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
+}
+.notifications .toast.hide {
+  animation: hide_toast 0.3s ease forwards;
+}
+@keyframes hide_toast {
+  0% {
+    transform: translateX(-10px);
+  }
+  40% {
+    transform: translateX(0%);
+  }
+  80% {
+    transform: translateX(-5%);
+  }
+  100% {
+    transform: translateX(calc(100% + 20px));
+  }
+}
+.toast::before {
+  position: absolute;
+  content: '';
+  height: 3px;
+  width: 100%;
+  bottom: 0px;
+  left: 0px;
+  animation: progress 5s linear forwards;
+}
+@keyframes progress {
+  100% {
+    width: 0%;
+  }
+}
+.toast.success::before,
+.btn#success {
+  background: $btn-success;
+}
+.toast.error::before,
+.btn#error {
+  background: $btn-error;
+}
+.toast.warning::before,
+.btn#warning {
+  background: $btn-warning;
+}
+.toast.info::before,
+.btn#info {
+  background: $btn-info;
+}
+.toast .column i {
+  font-size: 1.75rem;
+}
+.toast.success .column i {
+  color: $btn-success;
+}
+.toast.error .column i {
+  color: $btn-error;
+}
+.toast.warning .column i {
+  color: $btn-warning;
+}
+.toast.info .column i {
+  color: $btn-info;
+}
+.toast .column span {
+  font-size: 0.85rem;
+  margin-left: 12px;
+}
+.toast i:last-child {
+  color: #aeb0d7;
+  cursor: pointer;
+}
+.toast i:last-child:hover {
+  color: $btn-dark;
+}

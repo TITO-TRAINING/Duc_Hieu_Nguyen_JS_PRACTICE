@@ -1,0 +1,15 @@
+@use '../abstracts' as *;
+
+@font-face {
+  font-family: Montserrat;
+  src: url(../assets/font/Montserrat/Montserrat-Regular.ttf);
+}
+
+body {
+  background-color: $background-color;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 24px;
+  color: $text-color;
+  font-family: $primary-font;
+}
