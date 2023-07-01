@@ -1,0 +1,44 @@
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: bisque;
+  box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.2);
+  visibility: visible;
+  border-radius: 10px;
+}
+
+.close-btn {
+  text-align: right;
+  padding: 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.book-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  padding: 0 80px 20px;
+}
+
+.book-form > input {
+  padding: 5px 10px;
+  display: block;
+  margin-bottom: 10px;
+  outline: none;
+}
+
+.book-form > label {
+  margin: 8px 0;
+}
+
+.save-btn {
+  padding: 8px 0;
+}
+
+.hidden {
+  visibility: hidden;
+}

@@ -1,0 +1,76 @@
+table {
+  width: 100%;
+  margin: 20px auto 0;
+  border-spacing: 0 15px;
+}
+
+table th {
+  margin-right: 20px;
+  background-color: white;
+}
+
+table td {
+  text-align: center;
+  padding: 10px 0;
+}
+
+tr:nth-child(odd) {
+  background-color: #f7f6fe;
+}
+
+button {
+  padding: 5px 10px;
+}
+
+#search-box {
+  padding: 5px 10px;
+}
+
+/* active label */
+.status-btn {
+  margin: 0 auto;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 0px;
+  cursor: pointer;
+}
+
+.active {
+  color: #1f9254;
+  background-color: #219a5a1e;
+}
+
+.inactive {
+  color: #a30d11;
+  background-color: #a30d124b;
+}
+
+/* button */
+.action-btn {
+  border: 0px;
+  background-color: transparent;
+  cursor: pointer;
+}
+.action-btn > i {
+  font-size: 18px;
+}
+
+.delete-icon {
+  color: #a30d11;
+}
+
+.edit-icon {
+  color: #624de3;
+}
+
+.add-btn {
+  background-color: #624de3;
+  color: white;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 10px;
+}
+
+.add-btn > i {
+  font-size: 12px;
+}
