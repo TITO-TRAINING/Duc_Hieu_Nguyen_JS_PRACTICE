@@ -44,8 +44,9 @@ class BookView {
     const bCategory = this.form.querySelector(
       'input[name="book-category"]',
     ).value;
-    const bStatus =
-      this.form.querySelector('input[name="book-status"]').value === 'active';
+    const bStatus = !this.form.querySelector(
+      `input[name="book-status"][value="active"]`,
+    ).checked;
     const bNumber = this.form.querySelector('input[name="book-number"]').value;
     const bPrice = this.form.querySelector('input[name="book-price"]').value;
 
@@ -107,7 +108,7 @@ class BookView {
       if (this.checkValidForm()) {
         handel(this.formData);
         this.formData = {};
-        createToast('info', 'Insert Success: Your data has been inserted!');
+        createToast('info', 'Insert Success!');
       } else createToast('warning', 'Insert Failed: Check your data!');
     });
   }
@@ -118,7 +119,7 @@ class BookView {
       if (e.target.closest('.btn-delete')) {
         id = e.target.closest('.btn-delete').dataset.id;
         handel(id);
-        createToast('info', 'Delete Success: Your data has been deleted!');
+        createToast('info', 'Delete Success!');
       }
     });
   }
@@ -130,9 +131,9 @@ class BookView {
       if (this.checkValidForm()) {
         handel(this.idModal, this.formData);
         this.toggleModal(false);
-        createToast('info', 'Update Success: Your data has been updated!');
+        createToast('info', 'Update Success!');
         this.formData = {};
-      } else createToast('warning', 'Update Failed: Check your data!');
+      } else createToast('warning', 'Update Failed!');
     });
   }
 
@@ -158,9 +159,9 @@ class BookView {
           title: data[1].textContent,
           author: data[2].textContent,
           category: data[3].textContent,
-          status: data[4].firstElementChild.classList.contains('active'),
+          status: !data[4].firstElementChild.classList.contains('active'),
           number: data[5].textContent,
-          price: data[6].textContent,
+          price: data[6].textContent.replace(/\$/g, ''),
         };
       }
     });

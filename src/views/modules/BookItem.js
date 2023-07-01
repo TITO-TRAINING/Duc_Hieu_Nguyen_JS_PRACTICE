@@ -1,7 +1,7 @@
 function BookItem({ id, title, author, category, status, number, price }) {
   return `
   <tr>
-    <td>${id}</td>
+    <td>#${id}</td>
     <td>${title}</td>
     <td>${author}</td>
     <td>${category}</td>
@@ -13,7 +13,7 @@ function BookItem({ id, title, author, category, status, number, price }) {
       </button>
     </td>
     <td>${number}</td>
-    <td>${price}</td>
+    <td>$${price}</td>
     <td>
       <button class="action-btn btn-edit" data-id="${id}">
         <i class="ti-pencil-alt edit-icon" ></i>

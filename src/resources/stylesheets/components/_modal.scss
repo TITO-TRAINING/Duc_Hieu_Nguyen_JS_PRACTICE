@@ -1,19 +1,25 @@
+@use '../abstracts' as *;
+
 .modal {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: bisque;
+  background-color: $dark-row;
   box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.2);
   visibility: visible;
   border-radius: 10px;
+  z-index: 2;
+  font-size: 12px;
 }
 
-.close-btn {
+#close-btn {
   text-align: right;
   padding: 10px;
-  font-size: 12px;
-  cursor: pointer;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  z-index: 2;
 }
 
 .book-form {
@@ -21,7 +27,8 @@
   flex-direction: column;
   justify-content: center;
   width: 300px;
-  padding: 0 80px 20px;
+  padding: 20px 50px;
+  position: relative;
 }
 
 .book-form > input {
@@ -29,16 +36,37 @@
   display: block;
   margin-bottom: 10px;
   outline: none;
+  font-family: $primary-font;
+  border: 1.5px $border-color solid;
+  border-radius: 5px;
 }
 
-.book-form > label {
-  margin: 8px 0;
+.book-form label {
+  margin: 5px 0;
+  font-weight: bold;
 }
 
-.save-btn {
+.status-wrap {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.save-btn,
+.update-btn {
+  border: none;
+  cursor: pointer;
   padding: 8px 0;
+  border-radius: 10px;
+  background-color: $btn-add;
+  color: $background-color;
+  font-family: $primary-font;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
-.hidden {
-  visibility: hidden;
+i {
+  font-size: 14px;
+  cursor: pointer;
 }

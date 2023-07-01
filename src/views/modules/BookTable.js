@@ -3,13 +3,13 @@ function BookTable() {
     <table>
       <thead>
         <tr>
-            <th>#ID</th>
+            <th>ID</th>
             <th>Title</th>
             <th>Author</th>
             <th>Category</th>
             <th>Status</th>
             <th>Number</th>
-            <th>Price($)</th>
+            <th>Price</th>
             <th>Action</th>
         </tr>
       </thead>
