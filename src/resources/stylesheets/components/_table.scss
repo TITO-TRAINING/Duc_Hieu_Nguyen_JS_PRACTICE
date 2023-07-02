@@ -1,21 +1,39 @@
+@use '../abstracts' as *;
+
 table {
   width: 100%;
   margin: 20px auto 0;
-  border-spacing: 0 15px;
+  background-color: $background-color;
+  border-collapse: collapse;
+  text-align: left;
+  line-height: 24px;
+}
+
+table td,
+th {
+  border-bottom: 0.5px solid #ddd;
 }
 
 table th {
   margin-right: 20px;
-  background-color: white;
+  padding: 15px;
+  background-color: $background-color;
 }
 
 table td {
-  text-align: center;
-  padding: 10px 0;
+  min-width: 100px;
+  max-width: 200px;
+  word-wrap: break-word;
+  padding: 10px 0 10px 15px;
 }
 
 tr:nth-child(odd) {
-  background-color: #f7f6fe;
+  background-color: $dark-row;
+}
+
+td:last-child {
+  padding: 10px 10px 10px 15px;
+  min-width: 120px;
 }
 
 button {
@@ -33,16 +51,18 @@ button {
   border-radius: 10px;
   border: 0px;
   cursor: pointer;
+  font-family: $primary-font;
+  font-weight: bold;
 }
 
 .active {
-  color: #1f9254;
-  background-color: #219a5a1e;
+  color: $btn-active;
+  background-color: $bg-active;
 }
 
 .inactive {
-  color: #a30d11;
-  background-color: #a30d124b;
+  color: $btn-delete;
+  background-color: $bg-inactive;
 }
 
 /* button */
@@ -56,16 +76,16 @@ button {
 }
 
 .delete-icon {
-  color: #a30d11;
+  color: $btn-delete;
 }
 
 .edit-icon {
-  color: #624de3;
+  color: $btn-add;
 }
 
 .add-btn {
-  background-color: #624de3;
-  color: white;
+  background-color: $btn-add;
+  color: $background-color;
   font-weight: bold;
   padding: 6px 12px;
   border-radius: 10px;
