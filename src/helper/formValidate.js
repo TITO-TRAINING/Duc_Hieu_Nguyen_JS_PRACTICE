@@ -1,9 +1,9 @@
 import { createToast } from '../views/components/handleToast';
 
 const inputValidationRules = {
-  'book-title': /^[a-zA-Z0-9][a-zA-Z0-9\s]{0,98}[a-zA-Z0-9]$/,
-  'book-author': /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/,
-  'book-category': /^[a-zA-Z\s-]+$/,
+  'book-title': /^[\p{L}\d\s!@#$%^&*()[\]{};:'",.<>/?\\|-]{1,100}$/u,
+  'book-author': /^[\p{L}\s.&]{1,50}$/u,
+  'book-category': /^[\p{L}\d\s-]{1,50}$/u,
   inputMin: 5,
 };
 

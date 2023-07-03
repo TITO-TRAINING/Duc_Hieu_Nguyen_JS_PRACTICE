@@ -4,6 +4,7 @@
   position: fixed;
   top: 30px;
   right: 20px;
+  z-index: 3;
 }
 .notifications :where(.toast, .column) {
   display: flex;

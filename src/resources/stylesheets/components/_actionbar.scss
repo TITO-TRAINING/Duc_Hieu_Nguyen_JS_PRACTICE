@@ -9,6 +9,7 @@
 #search-box {
   border: 1.5px $border-color solid;
   border-radius: 10px;
+  font-family: $primary-font;
 }
 
 #search-box:focus-visible {

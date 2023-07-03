@@ -16,11 +16,11 @@ class BookView {
     this.toastList = document.createElement('ul');
     this.toastList.classList.add('notifications');
 
-    this.container.appendChild(this.toastList);
     this.container.innerHTML += ActionBar();
     this.container.innerHTML += BookTable();
 
     // add modules
+    this.app.appendChild(this.toastList);
     this.app.appendChild(this.container);
 
     this.modal = this.app.querySelector('.modal');
@@ -102,12 +102,41 @@ class BookView {
     return !inputs.some((input) => input.classList.contains('invalid'));
   }
 
+  clearInvalid() {
+    const inputs = [...this.form.querySelectorAll('input')];
+    inputs.map((input) => input.classList.remove('invalid'));
+  }
+
+  toggleModal(open = true) {
+    if (this.modal.classList.contains('hidden') && open) {
+      this.modal.classList.remove('hidden');
+      this.container.classList.add('blur');
+      this.clearInvalid();
+    } else if (!open) {
+      this.modal.classList.add('hidden');
+      this.container.classList.remove('blur');
+    }
+  }
+
+  toggleBtn(save = true) {
+    const saveBtn = this.form.querySelector('.save-btn');
+    const updateBtn = this.form.querySelector('.update-btn');
+    if (save) {
+      saveBtn.classList.remove('hidden');
+      updateBtn.classList.add('hidden');
+    } else {
+      saveBtn.classList.add('hidden');
+      updateBtn.classList.remove('hidden');
+    }
+  }
+
   bindAddBook(handel) {
     this.form.addEventListener('submit', (e) => {
       e.preventDefault();
       if (this.checkValidForm()) {
         handel(this.formData);
         this.formData = {};
+        this.toggleModal(false);
         createToast('info', 'Insert Success!');
       } else createToast('warning', 'Insert Failed: Check your data!');
     });
@@ -137,25 +166,19 @@ class BookView {
     });
   }
 
-  toggleModal(open = true) {
-    if (this.modal.classList.contains('hidden') && open) {
-      this.modal.classList.remove('hidden');
-    } else if (!open) {
-      this.modal.classList.add('hidden');
-    }
-  }
-
   bindUpdateModal() {
     let id;
     this.table.addEventListener('click', (e) => {
       if (e.target.closest('.btn-edit')) {
         id = e.target.closest('.btn-edit').dataset.id;
+        this.clearInvalid();
         this.toggleModal(true);
+        this.toggleBtn(false);
         this.idModal = id;
 
         const data = e.target.closest('tr').querySelectorAll('td');
         this.formData = {
-          id: data[0].textContent,
+          id: data[0].textContent.replace(/#/g, ''),
           title: data[1].textContent,
           author: data[2].textContent,
           category: data[3].textContent,
@@ -193,17 +216,21 @@ class BookView {
     const openModal = this.app.querySelector('#add-btn');
     openModal.addEventListener('click', () => {
       if (this.modal.classList.contains('hidden')) {
+        this.clearInvalid();
         this.modal.classList.remove('hidden');
+        this.container.classList.add('blur');
+        this.toggleBtn();
       }
     });
     closeModal.addEventListener('click', () => {
       this.modal.classList.add('hidden');
+      this.container.classList.remove('blur');
       this.formData = {};
     });
   }
 
   bindCloseToast() {
-    const toast = this.container.querySelector('.notifications');
+    const toast = this.app.querySelector('.notifications');
     toast.addEventListener('click', (e) => {
       if (e.target.classList.contains('ti-close')) {
         removeToast(e.target.parentNode);
