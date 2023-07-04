@@ -1,5 +1,15 @@
 @use '../abstracts' as *;
 
+.table-title {
+  padding: 10px;
+  border-bottom: 1px $border-color solid;
+  p {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+}
+
 table {
   width: 100%;
   margin: 20px auto 0;
@@ -37,10 +47,6 @@ td:last-child {
 }
 
 button {
-  padding: 5px 10px;
-}
-
-#search-box {
   padding: 5px 10px;
 }
 

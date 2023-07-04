@@ -1,14 +1,17 @@
 import BookTable from './modules/BookTable';
-import ActionBar from './modules/ActionBar';
 import BookModal from './modules/BookModal';
 import BookItem from './modules/BookItem';
 import { createToast, removeToast } from './components/handleToast';
 import validate from '../helper/formValidate';
+import Header from './components/Header';
 
 class BookView {
   constructor() {
     this.app = document.querySelector('#root');
     this.app.innerHTML += BookModal({});
+
+    this.main = document.createElement('div');
+    this.main.classList.add('main');
 
     this.container = document.createElement('div');
     this.container.classList.add('container');
@@ -16,12 +19,13 @@ class BookView {
     this.toastList = document.createElement('ul');
     this.toastList.classList.add('notifications');
 
-    this.container.innerHTML += ActionBar();
+    this.main.innerHTML += Header();
     this.container.innerHTML += BookTable();
 
     // add modules
+    this.main.appendChild(this.container);
     this.app.appendChild(this.toastList);
-    this.app.appendChild(this.container);
+    this.app.appendChild(this.main);
 
     this.modal = this.app.querySelector('.modal');
     this.table = document.querySelector('.book-list');
@@ -110,11 +114,11 @@ class BookView {
   toggleModal(open = true) {
     if (this.modal.classList.contains('hidden') && open) {
       this.modal.classList.remove('hidden');
-      this.container.classList.add('blur');
+      this.main.classList.add('blur');
       this.clearInvalid();
     } else if (!open) {
       this.modal.classList.add('hidden');
-      this.container.classList.remove('blur');
+      this.main.classList.remove('blur');
     }
   }
 
@@ -201,7 +205,7 @@ class BookView {
   }
 
   bindSearch(handel) {
-    const input = this.container.querySelector('#search-box');
+    const input = this.main.querySelector('#search-box');
     input.addEventListener('keypress', (e) => {
       if (e.keyCode === 13) handel(e.target.value);
     });
@@ -218,13 +222,13 @@ class BookView {
       if (this.modal.classList.contains('hidden')) {
         this.clearInvalid();
         this.modal.classList.remove('hidden');
-        this.container.classList.add('blur');
+        this.main.classList.add('blur');
         this.toggleBtn();
       }
     });
     closeModal.addEventListener('click', () => {
       this.modal.classList.add('hidden');
-      this.container.classList.remove('blur');
+      this.main.classList.remove('blur');
       this.formData = {};
     });
   }
