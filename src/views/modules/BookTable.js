@@ -1,5 +1,8 @@
 function BookTable() {
   return `
+    <div class="table-title">
+      <p>Table of Books </p>
+    </div>
     <table>
       <thead>
         <tr>

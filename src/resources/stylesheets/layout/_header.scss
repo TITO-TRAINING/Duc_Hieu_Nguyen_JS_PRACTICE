@@ -1,0 +1,86 @@
+@use '../abstracts' as *;
+
+.header-ctn {
+  display: flex;
+  justify-content: space-between;
+  width: 85%;
+  margin: 0 auto;
+  padding: 20px 0 30px;
+
+  .menu-left {
+    display: flex;
+    .logo-wrapper {
+      width: 50px;
+      letter-spacing: -28px;
+      font-size: 50px;
+      font-weight: bold;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .menu {
+      margin-left: 60px;
+
+      nav {
+        display: flex;
+
+        .search-wrapper {
+          line-height: 50px;
+
+          #search-box {
+            padding: 5px 20px;
+            border: 1.5px $border-color solid;
+            border-radius: 10px;
+            font-family: $primary-font;
+
+            &:focus-visible {
+              outline: none;
+            }
+          }
+        }
+      }
+
+      .menu-list {
+        display: flex;
+
+        .nav-link {
+          font-weight: bold;
+          cursor: pointer;
+          margin-left: 50px;
+          letter-spacing: 1px;
+          line-height: 50px;
+          border-bottom: 1.5px $secondary-bg-color solid;
+
+          &:hover {
+            border-bottom: 1.5px $border-color solid;
+          }
+        }
+      }
+    }
+  }
+
+  .menu-btn {
+    line-height: 50px;
+
+    #add-btn {
+      color: #fff;
+      cursor: pointer;
+      background-color: $text-color;
+      border: 1px $secondary-bg-color solid;
+      border-radius: 10px;
+      font-family: Montserrat;
+      font-weight: bold;
+      padding: 10px 20px;
+
+      &:hover {
+        color: $btn-add;
+        background-color: $secondary-bg-color;
+        border: 1px $btn-add solid;
+      }
+
+      i {
+        padding: 0 8px;
+        font-weight: bold;
+      }
+    }
+  }
+}
