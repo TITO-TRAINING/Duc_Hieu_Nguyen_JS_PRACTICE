@@ -101,6 +101,10 @@ class BookView {
     }
   }
 
+  // displayPagination(ceil) {
+  //   this.container.innerHTML += Pagination(ceil);
+  // }
+
   checkValidForm() {
     const inputs = [...this.form.querySelectorAll('input')];
     return !inputs.some((input) => input.classList.contains('invalid'));
@@ -132,6 +136,24 @@ class BookView {
       saveBtn.classList.add('hidden');
       updateBtn.classList.remove('hidden');
     }
+  }
+
+  handelToggleModal() {
+    const closeModal = this.app.querySelector('#close-btn');
+    const openModal = this.app.querySelector('#add-btn');
+    openModal.addEventListener('click', () => {
+      if (this.modal.classList.contains('hidden')) {
+        this.clearInvalid();
+        this.modal.classList.remove('hidden');
+        this.main.classList.add('blur');
+        this.toggleBtn();
+      }
+    });
+    closeModal.addEventListener('click', () => {
+      this.modal.classList.add('hidden');
+      this.main.classList.remove('blur');
+      this.formData = {};
+    });
   }
 
   bindAddBook(handel) {
@@ -215,24 +237,6 @@ class BookView {
     });
   }
 
-  handelToggleModal() {
-    const closeModal = this.app.querySelector('#close-btn');
-    const openModal = this.app.querySelector('#add-btn');
-    openModal.addEventListener('click', () => {
-      if (this.modal.classList.contains('hidden')) {
-        this.clearInvalid();
-        this.modal.classList.remove('hidden');
-        this.main.classList.add('blur');
-        this.toggleBtn();
-      }
-    });
-    closeModal.addEventListener('click', () => {
-      this.modal.classList.add('hidden');
-      this.main.classList.remove('blur');
-      this.formData = {};
-    });
-  }
-
   bindCloseToast() {
     const toast = this.app.querySelector('.notifications');
     toast.addEventListener('click', (e) => {
@@ -241,6 +245,16 @@ class BookView {
       }
     });
   }
+
+  // bindIndexPage(handel) {
+  //   const pagination = this.container.querySelector('.pagination');
+  //   pagination.addEventListener('click', (e) => {
+  //     if (e.target.nodeName === 'BUTTON') {
+  //       const {index} = e.target.dataset ;
+  //       handel(index);
+  //     }
+  //   });
+  // }
 }
 
 export default BookView;
