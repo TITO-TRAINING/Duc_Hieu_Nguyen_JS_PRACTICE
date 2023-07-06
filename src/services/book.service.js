@@ -8,6 +8,8 @@ class BookService {
       pageIndex: 1,
       perPage: 5,
     };
+
+    this.ceil = Math.ceil(this.books.length / this.page.perPage);
   }
 
   bindDataChanged(callback) {

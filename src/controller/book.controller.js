@@ -2,17 +2,12 @@ class BookController {
   constructor(bookViews, bookServices) {
     this.bookViews = bookViews;
     this.bookServices = bookServices;
-
-    const ceil = Math.ceil(
-      this.bookServices.books.length / this.bookServices.page.perPage,
-    );
-
     // Service
     this.onDataChanged(this.bookServices.books);
     this.bookServices.bindDataChanged(this.onDataChanged);
 
+    this.onRenderPagination(this.bookServices.ceil);
     // View
-    this.bookViews.displayPagination(ceil);
     this.bookViews.bindAddBook(this.handleAddBook);
     this.bookViews.bindDeleteBook(this.handleDeleteBook);
     this.bookViews.bindUpdateModal();
@@ -21,8 +16,12 @@ class BookController {
     this.bookViews.bindUpdateBook(this.handleUpdateBook);
     this.bookViews.bindToggleStatus(this.handelToggle);
     this.bookViews.bindSearch(this.handelSearch);
-    // this.bookViews.bindIndexPage(this.handelPagination);
+    this.bookViews.bindIndexPage(this.handelPagination);
   }
+
+  onRenderPagination = (ceil) => {
+    this.bookViews.displayPagination(ceil);
+  };
 
   onDataChanged = (books) => {
     this.bookViews.displayData(books);
@@ -48,9 +47,9 @@ class BookController {
     this.bookServices.search(key);
   };
 
-  // handelPagination = (page) => {
-  //   this.bookServices.updatePageIndex(page);
-  // };
+  handelPagination = (page) => {
+    this.bookServices.updatePageIndex(page);
+  };
 }
 
 export default BookController;

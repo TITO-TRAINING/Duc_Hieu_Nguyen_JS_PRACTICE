@@ -102,8 +102,8 @@ class BookView {
     }
   }
 
-  displayPagination() {
-    this.container.innerHTML += Pagination();
+  displayPagination(ceil) {
+    this.container.appendChild(Pagination(ceil));
   }
 
   checkValidForm() {
@@ -247,15 +247,15 @@ class BookView {
     });
   }
 
-  // bindIndexPage(handel) {
-  //   const pagination = this.container.querySelector('.pagination');
-  //   pagination.addEventListener('click', (e) => {
-  //     if (e.target.nodeName === 'BUTTON') {
-  //       const {index} = e.target.dataset ;
-  //       handel(index);
-  //     }
-  //   });
-  // }
+  bindIndexPage(handel) {
+    const pagination = this.container.querySelector('.pagination');
+    pagination.addEventListener('click', (e) => {
+      if (e.target.nodeName === 'BUTTON') {
+        const { index } = e.target.dataset;
+        handel(index);
+      }
+    });
+  }
 }
 
 export default BookView;
