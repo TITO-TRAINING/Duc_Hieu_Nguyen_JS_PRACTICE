@@ -1,4 +1,4 @@
-function Pagination(ceil) {
+function Pagination(ceil = 1) {
   let innerItem = '';
   for (let i = 1; i <= ceil; i += 1) {
     innerItem += `

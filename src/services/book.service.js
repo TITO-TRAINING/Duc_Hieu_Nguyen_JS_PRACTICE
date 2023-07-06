@@ -48,16 +48,16 @@ class BookService {
     this.commit(this.books);
   }
 
-  // updatePageIndex(newPage) {
-  //   const start = this.page.perPage*(newPage-1);
-  //   const end = this.page.perPage*newPage;
-  //   this.dataDisplay = this.books.slice(start, end);
+  updatePageIndex(newPage) {
+    const start = this.page.perPage * (newPage - 1);
+    const end = this.page.perPage * newPage;
+    this.dataDisplay = this.books.slice(start, end);
 
-  //   const pageInfo = {...this.page, ...{pageIndex: newPage}};
-  //   localStorage.setItem('page', JSON.stringify(pageInfo));
+    const pageInfo = { ...this.page, ...{ pageIndex: newPage } };
+    localStorage.setItem('page', JSON.stringify(pageInfo));
 
-  //   this.onDataChanged(this.dataDisplay);
-  // }
+    this.onDataChanged(this.dataDisplay);
+  }
 }
 
 export default BookService;

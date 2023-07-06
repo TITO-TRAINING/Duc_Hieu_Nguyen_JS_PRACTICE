@@ -4,6 +4,7 @@ import BookItem from './modules/BookItem';
 import { createToast, removeToast } from './components/handleToast';
 import validate from '../helper/formValidate';
 import Header from './components/Header';
+import Pagination from './modules/Pagination';
 
 class BookView {
   constructor() {
@@ -101,9 +102,9 @@ class BookView {
     }
   }
 
-  // displayPagination(ceil) {
-  //   this.container.innerHTML += Pagination(ceil);
-  // }
+  displayPagination() {
+    this.container.innerHTML += Pagination();
+  }
 
   checkValidForm() {
     const inputs = [...this.form.querySelectorAll('input')];
