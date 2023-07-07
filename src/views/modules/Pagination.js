@@ -12,13 +12,11 @@ function Pagination(ceil = 1) {
   }
 
   const wrapItem = `
-    <div class="pagination-wrapper">
       <nav>
         <ul class="pagination">
           ${innerItem}
         </ul>
       </nav>
-    </div>
   `;
 
   paginationE.innerHTML += wrapItem;

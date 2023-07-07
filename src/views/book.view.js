@@ -94,7 +94,7 @@ class BookView {
     }
 
     if (books.length === 0) {
-      createToast('info', 'Your data is empty !');
+      createToast('info', 'Your page is empty !');
     } else {
       books.forEach((book) => {
         this.table.innerHTML += BookItem(book);
@@ -103,7 +103,10 @@ class BookView {
   }
 
   displayPagination(ceil) {
-    this.container.appendChild(Pagination(ceil));
+    const pagination = Pagination(ceil);
+    this.container.appendChild(pagination);
+    const pageBtn = pagination.querySelector('.page-link');
+    pageBtn.classList.add('active');
   }
 
   checkValidForm() {
@@ -252,7 +255,10 @@ class BookView {
     pagination.addEventListener('click', (e) => {
       if (e.target.nodeName === 'BUTTON') {
         const { index } = e.target.dataset;
-        handel(index);
+        const pageBtn = pagination.querySelector('.active');
+        pageBtn.classList.remove('active');
+        e.target.classList.add('active');
+        handel(parseInt(index, 10));
       }
     });
   }

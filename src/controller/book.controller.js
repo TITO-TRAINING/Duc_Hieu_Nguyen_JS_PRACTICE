@@ -3,7 +3,7 @@ class BookController {
     this.bookViews = bookViews;
     this.bookServices = bookServices;
     // Service
-    this.onDataChanged(this.bookServices.books);
+    this.onDataChanged(this.bookServices.pageData);
     this.bookServices.bindDataChanged(this.onDataChanged);
 
     this.onRenderPagination(this.bookServices.ceil);
