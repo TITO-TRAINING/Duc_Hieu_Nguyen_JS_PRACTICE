@@ -3,10 +3,10 @@ function Pagination(ceil = 1) {
   paginationE.classList.add('pagination-wrapper');
 
   let innerItem = '';
-  for (let i = 1; i <= ceil; i += 1) {
+  for (let i = 2; i <= ceil; i += 1) {
     innerItem += `
       <li class="page-item">
-        <button data-index=${i} class="page-link"> ${i}</button>
+        <button data-index=${i} class="page-link">${i}</button>
       </li>
     `;
   }
@@ -14,6 +14,9 @@ function Pagination(ceil = 1) {
   const wrapItem = `
       <nav>
         <ul class="pagination">
+          <li class="page-item">
+            <button data-index=1 class="page-link">1</button>
+          </li>
           ${innerItem}
         </ul>
       </nav>
