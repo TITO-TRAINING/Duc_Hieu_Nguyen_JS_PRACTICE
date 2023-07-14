@@ -95,9 +95,17 @@ class BookView {
     while (this.table.firstChild) {
       this.table.removeChild(this.table.firstChild);
     }
+    const oldMsg = document.querySelector('.empty-msg');
+    if (oldMsg) {
+      oldMsg.remove();
+    }
 
     if (books.length === 0) {
-      createToast('info', 'Your page is empty !');
+      const msg = document.createElement('p');
+
+      msg.classList.add('empty-msg');
+      msg.textContent = 'Your data is empty';
+      this.container.appendChild(msg);
     } else {
       books.forEach((book) => {
         this.table.innerHTML += BookItem(book);
@@ -245,13 +253,20 @@ class BookView {
   }
 
   bindSearch(handel) {
+    const pagination = document.querySelector('.pagination-wrapper nav');
     const input = this.main.querySelector('#search-box');
     input.addEventListener('keypress', (e) => {
-      if (e.keyCode === 13) handel(e.target.value);
+      if (e.keyCode === 13) {
+        handel(e.target.value);
+        pagination.classList.add('hidden');
+      }
     });
 
     input.addEventListener('keydown', (e) => {
-      if (e.keyCode === 46 || e.keyCode === 8) handel('');
+      if (e.keyCode === 46 || e.keyCode === 8) {
+        handel('');
+        pagination.classList.remove('hidden');
+      }
     });
   }
 
