@@ -23,7 +23,7 @@ class BookService {
 
   commit(books) {
     const pageData = books.slice(this.pageStart, this.pageEnd);
-    this.onDataChanged(pageData);
+    this.onDataChanged(pageData, this.ceil);
     this.updatePageIndex(this.page.pageIndex);
     localStorage.setItem('books', JSON.stringify(books));
   }
@@ -71,7 +71,7 @@ class BookService {
     this.page = { ...this.page, ...{ pageIndex: newPage } };
     localStorage.setItem('page', JSON.stringify(this.page));
 
-    this.onDataChanged(this.pageData);
+    this.onDataChanged(this.pageData, this.ceil);
   }
 
   updatePagination() {

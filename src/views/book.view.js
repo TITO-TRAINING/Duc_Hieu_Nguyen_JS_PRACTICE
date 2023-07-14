@@ -5,6 +5,7 @@ import { createToast, removeToast } from './components/handleToast';
 import validate from '../helper/formValidate';
 import Header from './components/Header';
 import Pagination from './modules/Pagination';
+import PaginationItem from './modules/PaginationItem';
 
 class BookView {
   constructor() {
@@ -22,6 +23,8 @@ class BookView {
 
     this.main.innerHTML += Header();
     this.container.innerHTML += BookTable();
+    const pagination = Pagination();
+    this.container.appendChild(pagination);
 
     // add modules
     this.main.appendChild(this.container);
@@ -103,10 +106,21 @@ class BookView {
   }
 
   displayPagination(ceil) {
-    const pagination = Pagination(ceil);
-    this.container.appendChild(pagination);
-    const pageBtn = pagination.querySelector('.page-link');
-    pageBtn.classList.add('active');
+    const pagination = this.container.querySelector('.pagination');
+
+    if (pagination.childElementCount < ceil) {
+      for (let i = pagination.childElementCount + 1; i <= ceil; i += 1) {
+        pagination.innerHTML += PaginationItem(i);
+      }
+    } else if (pagination.childElementCount > ceil) {
+      let fistLink = this.container.querySelector('.page-item');
+
+      while (fistLink.nextSibling) {
+        fistLink = fistLink.nextSibling;
+      }
+
+      fistLink.remove();
+    }
   }
 
   checkValidForm() {
@@ -256,7 +270,12 @@ class BookView {
       if (e.target.nodeName === 'BUTTON') {
         const { index } = e.target.dataset;
         const pageBtn = pagination.querySelector('.active');
-        pageBtn.classList.remove('active');
+        // temp
+
+        if (pageBtn) {
+          pageBtn.classList.remove('active');
+        }
+
         e.target.classList.add('active');
         handel(parseInt(index, 10));
       }

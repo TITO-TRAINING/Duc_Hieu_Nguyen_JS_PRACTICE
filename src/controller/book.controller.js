@@ -3,10 +3,10 @@ class BookController {
     this.bookViews = bookViews;
     this.bookServices = bookServices;
     // Service
-    this.onDataChanged(this.bookServices.pageData);
+    this.onDataChanged(this.bookServices.pageData, this.bookServices.ceil);
     this.bookServices.bindDataChanged(this.onDataChanged);
 
-    this.onRenderPagination(this.bookServices.ceil);
+    // this.onRenderPagination(this.bookServices.ceil);
     // View
     this.bookViews.bindAddBook(this.handleAddBook);
     this.bookViews.bindDeleteBook(this.handleDeleteBook);
@@ -19,12 +19,13 @@ class BookController {
     this.bookViews.bindIndexPage(this.handelPagination);
   }
 
-  onRenderPagination = (ceil) => {
-    this.bookViews.displayPagination(ceil);
-  };
+  // onRenderPagination = (ceil) => {
+  //   this.bookViews.displayPagination(ceil);
+  // };
 
-  onDataChanged = (books) => {
+  onDataChanged = (books, ceil) => {
     this.bookViews.displayData(books);
+    this.bookViews.displayPagination(ceil);
   };
 
   handleAddBook = (book) => {
