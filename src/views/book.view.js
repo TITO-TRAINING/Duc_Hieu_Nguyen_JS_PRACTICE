@@ -48,7 +48,7 @@ class BookView {
     const bCategory = this.form.querySelector(
       'input[name="book-category"]',
     ).value;
-    const bStatus = !this.form.querySelector(
+    const bStatus = this.form.querySelector(
       `input[name="book-status"][value="active"]`,
     ).checked;
     const bNumber = this.form.querySelector('input[name="book-number"]').value;
@@ -91,9 +91,18 @@ class BookView {
     while (this.table.firstChild) {
       this.table.removeChild(this.table.firstChild);
     }
+    const oldMsg = document.querySelector('.empty-msg');
+    if (oldMsg) {
+      oldMsg.remove();
+    }
 
     if (books.length === 0) {
-      createToast('info', 'Your data is empty !');
+      const msg = document.createElement('p');
+
+      msg.classList.add('empty-msg');
+      msg.textContent = 'Your data is empty';
+      msg.style.padding = '20px 10px';
+      this.container.appendChild(msg);
     } else {
       books.forEach((book) => {
         this.table.innerHTML += BookItem(book);
@@ -186,7 +195,7 @@ class BookView {
           title: data[1].textContent,
           author: data[2].textContent,
           category: data[3].textContent,
-          status: !data[4].firstElementChild.classList.contains('active'),
+          status: data[4].firstElementChild.classList.contains('active'),
           number: data[5].textContent,
           price: data[6].textContent.replace(/\$/g, ''),
         };
