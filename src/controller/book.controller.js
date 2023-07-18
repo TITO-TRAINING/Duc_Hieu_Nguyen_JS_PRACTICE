@@ -1,10 +1,9 @@
 class BookController {
-  constructor(bookViews, bookServices) {
-    this.bookViews = bookViews;
+  constructor(bookServices, bookViews) {
     this.bookServices = bookServices;
+    this.bookViews = bookViews;
 
     // Service
-    this.onDataChanged(this.bookServices.books);
     this.bookServices.bindDataChanged(this.onDataChanged);
 
     // View
