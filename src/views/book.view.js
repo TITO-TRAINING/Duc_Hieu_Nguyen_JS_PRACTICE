@@ -143,6 +143,24 @@ class BookView {
     }
   }
 
+  handelToggleModal() {
+    const closeModal = this.app.querySelector('#close-btn');
+    const openModal = this.app.querySelector('#add-btn');
+    openModal.addEventListener('click', () => {
+      if (this.modal.classList.contains('hidden')) {
+        this.clearInvalid();
+        this.modal.classList.remove('hidden');
+        this.main.classList.add('blur');
+        this.toggleBtn();
+      }
+    });
+    closeModal.addEventListener('click', () => {
+      this.modal.classList.add('hidden');
+      this.main.classList.remove('blur');
+      this.formData = {};
+    });
+  }
+
   bindAddBook(handel) {
     this.form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -224,24 +242,6 @@ class BookView {
     });
   }
 
-  handelToggleModal() {
-    const closeModal = this.app.querySelector('#close-btn');
-    const openModal = this.app.querySelector('#add-btn');
-    openModal.addEventListener('click', () => {
-      if (this.modal.classList.contains('hidden')) {
-        this.clearInvalid();
-        this.modal.classList.remove('hidden');
-        this.main.classList.add('blur');
-        this.toggleBtn();
-      }
-    });
-    closeModal.addEventListener('click', () => {
-      this.modal.classList.add('hidden');
-      this.main.classList.remove('blur');
-      this.formData = {};
-    });
-  }
-
   bindCloseToast() {
     const toast = this.app.querySelector('.notifications');
     toast.addEventListener('click', (e) => {
@@ -250,6 +250,7 @@ class BookView {
       }
     });
   }
+
 }
 
 export default BookView;
