@@ -15,6 +15,7 @@ class BookController {
     this.bookViews.bindUpdateBook(this.handleUpdateBook);
     this.bookViews.bindToggleStatus(this.handelToggle);
     this.bookViews.bindSearch(this.handelSearch);
+    this.bookViews.bindIndexPage(this.handelPagination);
   }
 
   onDataChanged = (books) => {
