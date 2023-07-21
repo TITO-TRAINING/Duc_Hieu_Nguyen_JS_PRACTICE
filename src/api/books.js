@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const host = 'http://localhost:3021/';
+
 export default axios.create({
-  baseURL: 'http://localhost:3021/',
+  baseURL: host,
 });
