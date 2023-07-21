@@ -30,10 +30,10 @@
 - Dillinger requires Node.js v18+ to run.
 - Install the dependencies and devDependencies and start the server.
 
-```
-$cd practice_js
-$npm i
-$npm run watchDB
+```sh
+cd practice_js
+npm i
+npm run watchDB
 Resources
 http://localhost:3021/books
 
@@ -41,10 +41,10 @@ Home
 http://localhost:3021
 
 ```
-
-```
-$cd practice_js
-$npm start
+new terminal
+```sh
+cd practice_js
+npm start
 
 Open on web: http://localhost:1234
 ```
