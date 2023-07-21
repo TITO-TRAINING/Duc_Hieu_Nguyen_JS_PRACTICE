@@ -51,7 +51,7 @@ button {
 }
 
 /* active label */
-table .status-btn {
+.status-btn {
   margin: 0 auto;
   padding: 8px 12px;
   border-radius: 10px;
@@ -61,12 +61,12 @@ table .status-btn {
   font-weight: bold;
 }
 
-table .active {
+.active {
   color: $btn-active;
   background-color: $bg-active;
 }
 
-table .inactive {
+.inactive {
   color: $btn-delete;
   background-color: $bg-inactive;
 }

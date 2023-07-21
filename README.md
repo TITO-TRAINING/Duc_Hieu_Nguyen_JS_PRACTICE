@@ -4,7 +4,7 @@
 
 ## TIMELINE:
 
-- Apr 20 - May 
+- Apr 20 - May
 
 ## TARGET:
 
@@ -17,6 +17,7 @@
 - HTML5/CSS3
 - JavaScript
 - Parcel
+- JSON Server/ Axios
 - MVCS
 
 
@@ -29,9 +30,21 @@
 - Dillinger requires Node.js v18+ to run.
 - Install the dependencies and devDependencies and start the server.
 
+```sh
+cd practice_js
+npm i
+npm run watchDB
+Resources
+http://localhost:3021/books
+
+Home
+http://localhost:3021
+
 ```
-$npm i
-$npm start
+new terminal
+```sh
+cd practice_js
+npm start
 
 Open on web: http://localhost:1234
 ```

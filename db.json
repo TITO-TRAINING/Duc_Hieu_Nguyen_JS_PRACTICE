@@ -1,0 +1,94 @@
+{
+  "books": [
+    {
+      "id": "sp6h",
+      "title": "Hardcover Fiction",
+      "author": "Ballantine",
+      "category": "Poem - Thoery",
+      "status": true,
+      "number": 100,
+      "price": 43.5
+    },
+    {
+      "id": "10it",
+      "title": "Dac Nhan Tam",
+      "author": "Pfin Tobby",
+      "category": "Selft-help",
+      "status": false,
+      "number": 100,
+      "price": 45.9
+    },
+    {
+      "id": "i4sb",
+      "title": "Tam thể ",
+      "author": "Châu Kiệt Luân",
+      "category": "Tiểu thuyết",
+      "status": true,
+      "number": 1000,
+      "price": 52.6
+    },
+    {
+      "id": "t7np",
+      "title": "Clean Code",
+      "author": "Robert C. Martin",
+      "category": "Tech Skill",
+      "status": true,
+      "number": 100,
+      "price": 45
+    },
+    {
+      "id": "nv5c",
+      "title": "Code Complete",
+      "author": "Steve McConnell",
+      "category": "Techical",
+      "status": true,
+      "number": 1000,
+      "price": 8.9
+    },
+    {
+      "id": "6xvw",
+      "title": "FE Interview",
+      "author": "Gayle Laakmann",
+      "category": "Technical",
+      "status": false,
+      "number": 100,
+      "price": 50
+    },
+    {
+      "id": "ea9a",
+      "title": "Definit-Edition",
+      "author": "Colleen Hoover",
+      "category": "Novel",
+      "status": true,
+      "number": 1000,
+      "price": 16.3
+    },
+    {
+      "id": "9fkr",
+      "title": " Algorithms",
+      "author": "Thomas H. Cormen",
+      "category": "Technical",
+      "status": true,
+      "number": 100,
+      "price": 2.9
+    },
+    {
+      "id": "tve7",
+      "title": "How2b BE",
+      "author": "PyMasterYi",
+      "category": "Technical",
+      "status": true,
+      "number": 1000,
+      "price": 7.9
+    },
+    {
+      "id": "t39n",
+      "title": "IoT ez Bae",
+      "author": "Mark Zubucs",
+      "category": "Technical",
+      "status": false,
+      "number": 100,
+      "price": 9.8
+    }
+  ]
+}
