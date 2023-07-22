@@ -23,6 +23,10 @@ class BookView {
     this.main.innerHTML += Header();
     this.container.innerHTML += BookTable();
 
+    this.pagination = document.createElement('div');
+    this.pagination.classList.add('pagination-wrapper');
+    this.container.appendChild(this.pagination);
+
     // add modules
     this.main.appendChild(this.container);
     this.app.appendChild(this.toastList);
@@ -112,8 +116,13 @@ class BookView {
   }
 
   displayPagination(total, cr) {
+    while (this.pagination.firstChild) {
+      this.pagination.removeChild(this.pagination.firstChild);
+    }
+
     const pagination = Pagination(total, cr);
-    this.container.appendChild(pagination);
+    this.pagination.appendChild(pagination);
+    console.log(cr);
   }
 
   checkValidForm() {
@@ -258,7 +267,7 @@ class BookView {
   }
 
   bindUpdatePage(handel) {
-    const pagination = this.app.querySelector('.pagination');
+    const pagination = this.app.querySelector('.pagination-wrapper');
     pagination.addEventListener('click', (e) => {
       if (e.target.nodeName === 'BUTTON') {
         const { index } = e.target.dataset;

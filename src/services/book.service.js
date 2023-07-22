@@ -8,9 +8,11 @@ class BookService {
     // this.books = books.map((book) => new Book(book));
     this.books = [];
     this.pageInfo = {
+      data: [],
       currentPage: 1,
       perPage: 5,
     };
+    this.getAllBook();
     this.getBookBookOnPage();
   }
 
@@ -20,7 +22,6 @@ class BookService {
       if (data) {
         data = await data.map((book) => new Book(book));
         this.books = data;
-        this.onDataChanged(this.books);
       }
     } catch (error) {
       createToast('error', error);
@@ -29,14 +30,13 @@ class BookService {
 
   async getBookBookOnPage(index = 1) {
     try {
-      let { data } = await api.get(
+      const { data } = await api.get(
         `/books?_page=${index}/&_limit=${this.pageInfo.perPage}`,
       );
       if (data) {
         this.pageInfo.currentPage = index;
-        data = await data.map((book) => new Book(book));
-        this.books = data;
-        this.onDataChanged(this.books);
+        this.pageInfo.data = await data.map((book) => new Book(book));
+        this.onDataChanged(this.pageInfo.data);
       }
     } catch (error) {
       createToast('error', error);
@@ -108,7 +108,7 @@ class BookService {
     });
     try {
       const { data } = await api.patch(`/books/${_id}`, newBook);
-      if (data) this.commit(this.books);
+      if (data) this.commit(this.pageInfo.data);
     } catch (error) {
       createToast('error', error);
     }

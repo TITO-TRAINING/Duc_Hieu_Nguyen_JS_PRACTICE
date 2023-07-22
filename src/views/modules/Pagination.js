@@ -1,9 +1,7 @@
 function Pagination(totalPage, cp = 1) {
-  const paginationE = document.createElement('div');
-  paginationE.classList.add('pagination-wrapper');
+  const paginationE = document.createElement('nav');
 
   const wrapItem = `
-      <nav>
         <ul class="pagination">
           <li class="page-item">
             <button data-index=${cp - 1} class="page-link ${
@@ -25,7 +23,6 @@ function Pagination(totalPage, cp = 1) {
             </button>
           </li>
         </ul>
-      </nav>
   `;
 
   paginationE.innerHTML += wrapItem;
