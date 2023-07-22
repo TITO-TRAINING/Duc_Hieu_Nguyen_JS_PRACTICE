@@ -7,13 +7,33 @@ class BookService {
     // const books = JSON.parse(localStorage.getItem('books')) || [];
     // this.books = books.map((book) => new Book(book));
     this.books = [];
-    this.getAllBook();
+    this.pageInfo = {
+      currentPage: 1,
+      perPage: 5,
+    };
+    this.getBookBookOnPage();
   }
 
   async getAllBook() {
     try {
       let { data } = await api.get('/books');
       if (data) {
+        data = await data.map((book) => new Book(book));
+        this.books = data;
+        this.onDataChanged(this.books);
+      }
+    } catch (error) {
+      createToast('error', error);
+    }
+  }
+
+  async getBookBookOnPage(index = 1) {
+    try {
+      let { data } = await api.get(
+        `/books?_page=${index}/&_limit=${this.pageInfo.perPage}`,
+      );
+      if (data) {
+        this.pageInfo.currentPage = index;
         data = await data.map((book) => new Book(book));
         this.books = data;
         this.onDataChanged(this.books);

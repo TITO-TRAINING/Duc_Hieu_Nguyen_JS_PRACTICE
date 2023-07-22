@@ -5,6 +5,7 @@ class BookController {
 
     // Service
     this.bookServices.bindDataChanged(this.onDataChanged);
+    this.bookViews.displayPagination(1, 1);
 
     // View
     this.bookViews.bindAddBook(this.handleAddBook);
@@ -15,10 +16,16 @@ class BookController {
     this.bookViews.bindUpdateBook(this.handleUpdateBook);
     this.bookViews.bindToggleStatus(this.handelToggle);
     this.bookViews.bindSearch(this.handelSearch);
+    this.bookViews.bindUpdatePage(this.handlePaginate);
   }
 
   onDataChanged = (books) => {
     this.bookViews.displayData(books);
+    console.log(this.bookServices.books.length);
+  };
+
+  handlePaginate = (pageIndex) => {
+    this.bookServices.getBookBookOnPage(pageIndex);
   };
 
   handleAddBook = (book) => {

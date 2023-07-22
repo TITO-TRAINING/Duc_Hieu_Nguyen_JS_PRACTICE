@@ -4,6 +4,7 @@ import BookItem from './modules/BookItem';
 import { createToast, removeToast } from './components/handleToast';
 import validate from '../helper/formValidate';
 import Header from './components/Header';
+import Pagination from './modules/Pagination';
 
 class BookView {
   constructor() {
@@ -108,6 +109,11 @@ class BookView {
         this.table.innerHTML += BookItem(book);
       });
     }
+  }
+
+  displayPagination(total, cr) {
+    const pagination = Pagination(total, cr);
+    this.container.appendChild(pagination);
   }
 
   checkValidForm() {
@@ -251,6 +257,15 @@ class BookView {
     });
   }
 
+  bindUpdatePage(handel) {
+    const pagination = this.app.querySelector('.pagination');
+    pagination.addEventListener('click', (e) => {
+      if (e.target.nodeName === 'BUTTON') {
+        const { index } = e.target.dataset;
+        handel(parseInt(index, 10));
+      }
+    });
+  }
 }
 
 export default BookView;
