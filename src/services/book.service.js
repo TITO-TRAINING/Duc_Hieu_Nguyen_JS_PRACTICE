@@ -13,7 +13,6 @@ class BookService {
       perPage: 5,
     };
     this.getAllBook();
-    this.getBookBookOnPage();
   }
 
   async getAllBook() {
@@ -22,33 +21,28 @@ class BookService {
       if (data) {
         data = await data.map((book) => new Book(book));
         this.books = data;
+        this.getBookOnPage();
       }
     } catch (error) {
       createToast('error', error);
     }
   }
 
-  async getBookBookOnPage(index = 1) {
-    try {
-      const { data } = await api.get(
-        `/books?_page=${index}/&_limit=${this.pageInfo.perPage}`,
-      );
-      if (data) {
-        this.pageInfo.currentPage = index;
-        this.pageInfo.data = await data.map((book) => new Book(book));
-        this.onDataChanged(this.pageInfo.data);
-      }
-    } catch (error) {
-      createToast('error', error);
-    }
+  getBookOnPage(index = 1) {
+    const start = this.pageInfo.perPage * (index - 1);
+    const end = this.pageInfo.perPage * index;
+    this.pageInfo.currentPage = index;
+    this.pageInfo.data = this.books.slice(start, end);
+    this.onDataChanged(this.pageInfo.data);
   }
 
   bindDataChanged(callback) {
     this.onDataChanged = callback;
   }
 
-  commit(books) {
-    this.onDataChanged(books);
+  commit() {
+    this.getBookOnPage(this.pageInfo.currentPage);
+    // this.onDataChanged(books);
     // localStorage.setItem('books', JSON.stringify(books));
   }
 
@@ -57,7 +51,7 @@ class BookService {
       const { data } = await api.post('/books', new Book(book));
       if (data) {
         this.books.push(new Book(book));
-        this.commit(this.books);
+        this.commit();
       }
     } catch (error) {
       createToast('error', error);
@@ -69,7 +63,7 @@ class BookService {
       const { data } = await api.delete(`/books/${_id}`);
       if (data) {
         this.books = this.books.filter(({ id }) => id !== _id);
-        this.commit(this.books);
+        this.commit();
       }
     } catch (error) {
       createToast('error', error);
@@ -83,7 +77,7 @@ class BookService {
         this.books = this.books.map((book) =>
           book.id === _id ? new Book({ ...book, ...newBook }) : book,
         );
-        this.commit(this.books);
+        this.commit();
       }
     } catch (error) {
       createToast('error', error);
@@ -91,10 +85,14 @@ class BookService {
   }
 
   search(key) {
-    const temp = this.books.filter((book) =>
-      book.title.toLowerCase().includes(key.toLowerCase()),
-    );
-    this.onDataChanged(temp);
+    if (key !== '') {
+      const temp = this.books.filter((book) =>
+        book.title.toLowerCase().includes(key.toLowerCase()),
+      );
+      this.onDataChanged(temp);
+    } else {
+      this.getBookOnPage(this.pageInfo.currentPage);
+    }
   }
 
   async switchStatus(_id) {
@@ -108,7 +106,7 @@ class BookService {
     });
     try {
       const { data } = await api.patch(`/books/${_id}`, newBook);
-      if (data) this.commit(this.pageInfo.data);
+      if (data) this.commit();
     } catch (error) {
       createToast('error', error);
     }

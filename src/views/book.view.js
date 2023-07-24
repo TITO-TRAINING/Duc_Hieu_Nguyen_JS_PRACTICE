@@ -122,7 +122,6 @@ class BookView {
 
     const pagination = Pagination(total, cr);
     this.pagination.appendChild(pagination);
-    console.log(cr);
   }
 
   checkValidForm() {
@@ -249,11 +248,20 @@ class BookView {
   bindSearch(handel) {
     const input = this.main.querySelector('#search-box');
     input.addEventListener('keypress', (e) => {
-      if (e.keyCode === 13) handel(e.target.value);
+      if (e.keyCode === 13) {
+        handel(e.target.value);
+        this.pagination.firstChild.classList.add('hidden');
+      }
     });
 
-    input.addEventListener('keydown', (e) => {
-      if (e.keyCode === 46 || e.keyCode === 8) handel('');
+    input.addEventListener('keyup', (e) => {
+      if (e.keyCode === 46 || e.keyCode === 8) {
+        handel(e.target.value);
+        this.pagination.firstChild.classList.add('hidden');
+        if (e.target.value === '') {
+          this.pagination.firstChild.classList.remove('hidden');
+        }
+      }
     });
   }
 
@@ -269,8 +277,9 @@ class BookView {
   bindUpdatePage(handel) {
     const pagination = this.app.querySelector('.pagination-wrapper');
     pagination.addEventListener('click', (e) => {
-      if (e.target.nodeName === 'BUTTON') {
-        const { index } = e.target.dataset;
+      const eventEle = e.target.closest('.page-link');
+      if (eventEle && !eventEle.disabled) {
+        const { index } = e.target.closest('.page-link').dataset;
         handel(parseInt(index, 10));
       }
     });

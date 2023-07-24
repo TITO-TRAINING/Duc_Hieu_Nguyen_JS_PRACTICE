@@ -21,9 +21,11 @@ class BookController {
 
   onDataChanged = (books) => {
     this.bookViews.displayData(books);
+
     const ceil = Math.ceil(
       this.bookServices.books.length / this.bookServices.pageInfo.perPage,
     );
+
     this.bookViews.displayPagination(
       ceil,
       this.bookServices.pageInfo.currentPage,
@@ -31,7 +33,7 @@ class BookController {
   };
 
   handlePaginate = (pageIndex) => {
-    this.bookServices.getBookBookOnPage(pageIndex);
+    this.bookServices.getBookOnPage(pageIndex);
   };
 
   handleAddBook = (book) => {
