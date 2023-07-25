@@ -4,6 +4,7 @@ import BookItem from './modules/BookItem';
 import { createToast, removeToast } from './components/handleToast';
 import validate from '../helper/formValidate';
 import Header from './components/Header';
+import Pagination from './modules/Pagination';
 
 class BookView {
   constructor() {
@@ -21,6 +22,10 @@ class BookView {
 
     this.main.innerHTML += Header();
     this.container.innerHTML += BookTable();
+
+    this.pagination = document.createElement('div');
+    this.pagination.classList.add('pagination-wrapper');
+    this.container.appendChild(this.pagination);
 
     // add modules
     this.main.appendChild(this.container);
@@ -108,6 +113,15 @@ class BookView {
         this.table.innerHTML += BookItem(book);
       });
     }
+  }
+
+  displayPagination(total, cr) {
+    while (this.pagination.firstChild) {
+      this.pagination.removeChild(this.pagination.firstChild);
+    }
+
+    const pagination = Pagination(total, cr);
+    this.pagination.appendChild(pagination);
   }
 
   checkValidForm() {
@@ -234,11 +248,20 @@ class BookView {
   bindSearch(handel) {
     const input = this.main.querySelector('#search-box');
     input.addEventListener('keypress', (e) => {
-      if (e.keyCode === 13) handel(e.target.value);
+      if (e.keyCode === 13) {
+        handel(e.target.value);
+        this.pagination.firstChild.classList.add('hidden');
+      }
     });
 
-    input.addEventListener('keydown', (e) => {
-      if (e.keyCode === 46 || e.keyCode === 8) handel('');
+    input.addEventListener('keyup', (e) => {
+      if (e.keyCode === 46 || e.keyCode === 8) {
+        handel(e.target.value);
+        this.pagination.firstChild.classList.add('hidden');
+        if (e.target.value === '') {
+          this.pagination.firstChild.classList.remove('hidden');
+        }
+      }
     });
   }
 
@@ -251,6 +274,16 @@ class BookView {
     });
   }
 
+  bindUpdatePage(handel) {
+    const pagination = this.app.querySelector('.pagination-wrapper');
+    pagination.addEventListener('click', (e) => {
+      const eventEle = e.target.closest('.page-link');
+      if (eventEle && !eventEle.disabled) {
+        const { index } = e.target.closest('.page-link').dataset;
+        handel(parseInt(index, 10));
+      }
+    });
+  }
 }
 
 export default BookView;

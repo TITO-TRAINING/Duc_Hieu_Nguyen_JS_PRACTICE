@@ -14,7 +14,7 @@
       "title": "Dac Nhan Tam",
       "author": "Pfin Tobby",
       "category": "Selft-help",
-      "status": false,
+      "status": true,
       "number": 100,
       "price": 45.9
     },
@@ -41,7 +41,7 @@
       "title": "Code Complete",
       "author": "Steve McConnell",
       "category": "Techical",
-      "status": true,
+      "status": false,
       "number": 1000,
       "price": 8.9
     },
@@ -50,7 +50,7 @@
       "title": "FE Interview",
       "author": "Gayle Laakmann",
       "category": "Technical",
-      "status": false,
+      "status": true,
       "number": 100,
       "price": 50
     },
@@ -86,9 +86,18 @@
       "title": "IoT ez Bae",
       "author": "Mark Zubucs",
       "category": "Technical",
-      "status": false,
-      "number": 100,
+      "status": true,
+      "number": 99,
       "price": 9.8
+    },
+    {
+      "id": "wri8",
+      "title": "Bí quyết tán gái",
+      "author": "IT Lỏd",
+      "category": "IT Help",
+      "status": true,
+      "number": 1,
+      "price": 99.9
     }
   ]
 }
