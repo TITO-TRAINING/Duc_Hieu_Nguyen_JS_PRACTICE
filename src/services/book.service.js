@@ -50,7 +50,7 @@ class BookService {
     try {
       const { data } = await api.post('/books', new Book(book));
       if (data) {
-        this.books.push(new Book(book));
+        this.books.push(data);
         this.commit();
       }
     } catch (error) {

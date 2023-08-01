@@ -1,17 +1,6 @@
-import generateID from '../helper/uid';
-
 class Book {
   constructor(
-    {
-      id = generateID(),
-      title,
-      author,
-      category,
-      status,
-      number,
-      price,
-      check,
-    } = {
+    { id, title, author, category, status, number, price, check } = {
       check: false,
     },
   ) {

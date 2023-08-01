@@ -5,6 +5,7 @@ import { createToast, removeToast } from './components/handleToast';
 import validate from '../helper/formValidate';
 import Header from './components/Header';
 import Pagination from './modules/Pagination';
+import debounce from '../helper/debounce';
 
 class BookView {
   constructor() {
@@ -192,7 +193,7 @@ class BookView {
     this.table.addEventListener('click', (e) => {
       if (e.target.closest('.btn-delete')) {
         id = e.target.closest('.btn-delete').dataset.id;
-        handel(id);
+        handel(parseInt(id, 10));
         createToast('info', 'Delete Success!');
       }
     });
@@ -203,7 +204,7 @@ class BookView {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       if (this.checkValidForm()) {
-        handel(this.idModal, this.formData);
+        handel(parseInt(this.idModal, 10), this.formData);
         this.toggleModal(false);
         createToast('info', 'Update Success!');
         this.formData = {};
@@ -240,29 +241,26 @@ class BookView {
     this.table.addEventListener('click', (e) => {
       if (e.target.classList.contains('status-btn')) {
         id = e.target.getAttribute('data-id');
-        handel(id);
+        handel(parseInt(id, 10));
       }
     });
   }
 
   bindSearch(handel) {
     const input = this.main.querySelector('#search-box');
-    input.addEventListener('keypress', (e) => {
-      if (e.keyCode === 13) {
-        handel(e.target.value);
-        this.pagination.firstChild.classList.add('hidden');
-      }
-    });
 
-    input.addEventListener('keyup', (e) => {
-      if (e.keyCode === 46 || e.keyCode === 8) {
-        handel(e.target.value);
+    const onInputChange = (e) => {
+      const inputValue = e.target.value;
+      handel(inputValue);
+
+      if (inputValue !== '') {
         this.pagination.firstChild.classList.add('hidden');
-        if (e.target.value === '') {
-          this.pagination.firstChild.classList.remove('hidden');
-        }
+      } else {
+        this.pagination.firstChild.classList.remove('hidden');
       }
-    });
+    };
+
+    input.addEventListener('input', debounce(onInputChange, 1500));
   }
 
   bindCloseToast() {
