@@ -1,9 +1,5 @@
 class Book {
-  constructor(
-    { id, title, author, category, status, number, price, check } = {
-      check: false,
-    },
-  ) {
+  constructor({ id, title, author, category, status, number, price }) {
     this.id = id;
     this.title = title;
     this.author = author;
@@ -11,7 +7,6 @@ class Book {
     this.status = status;
     this.number = number;
     this.price = price;
-    this.check = check;
   }
 }
 

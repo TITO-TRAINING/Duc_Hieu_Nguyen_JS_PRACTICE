@@ -10,7 +10,6 @@ class BookController {
     // View
     this.bookViews.bindAddBook(this.handleAddBook);
     this.bookViews.bindDeleteBook(this.handleDeleteBook);
-    this.bookViews.bindUpdateModal();
     this.bookViews.bindCloseToast();
     this.bookViews.handelToggleModal();
     this.bookViews.bindUpdateBook(this.handleUpdateBook);

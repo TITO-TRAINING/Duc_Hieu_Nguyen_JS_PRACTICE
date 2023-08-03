@@ -17,7 +17,7 @@ function BookModal({
         <label for="book-title">Title</label>
         <input
         type="text"
-        name="book-title"
+        name="title"
         id="book-title"
         maxlength="100"
         value="${title || ''}"
@@ -26,7 +26,7 @@ function BookModal({
         <label for="book-author">Author</label>
         <input
         type="text"
-        name="book-author"
+        name="author"
         id="book-author"
         maxlength="50"
         value="${author || ''}"
@@ -35,7 +35,7 @@ function BookModal({
         <label for="book-category">Category</label>
         <input
         type="text"
-        name="book-category"
+        name="category"
         id="book-category"
         maxlength="30"
         value="${category || ''}"
@@ -46,7 +46,7 @@ function BookModal({
           <input
           ${status ? 'checked' : ''}
           type="radio"
-          name="book-status"
+          name="status"
           value="active" id="active"
           class="status-btn active-btn">
 
@@ -54,7 +54,7 @@ function BookModal({
           <input
           ${!status ? 'checked' : ''}
           type="radio"
-          name="book-status"
+          name="status"
           value="inactive"
           id="inactive"
           class="status-btn inactive-btn">
@@ -64,7 +64,7 @@ function BookModal({
         <label for="book-number">Quantity</label>
         <input
         type="number"
-        name="book-number"
+        name="number"
         id="book-number"
         min="1"
         value="${number}"
@@ -73,7 +73,7 @@ function BookModal({
         <label for="book-price">Price</label>
         <input
         type="number"
-        name="book-price"
+        name="price"
         id="book-price"
         step="any"
         min="1"

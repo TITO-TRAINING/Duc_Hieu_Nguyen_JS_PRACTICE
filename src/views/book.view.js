@@ -6,6 +6,7 @@ import validate from '../helper/formValidate';
 import Header from './components/Header';
 import Pagination from './modules/Pagination';
 import debounce from '../helper/debounce';
+import { clearForm, collectData } from '../helper/formUtil';
 
 class BookView {
   constructor() {
@@ -38,62 +39,17 @@ class BookView {
 
     this.form = document.querySelector('.book-form');
     validate(this.form);
+
+    this.books = [];
   }
 
-  get idModal() {
-    return this.form.querySelector('#book-id').value;
-  }
-
-  set idModal(id) {
-    this.form.querySelector('#book-id').value = id;
-  }
-
-  get formData() {
-    const bTitle = this.form.querySelector('input[name="book-title"]').value;
-    const bAuthor = this.form.querySelector('input[name="book-author"]').value;
-    const bCategory = this.form.querySelector(
-      'input[name="book-category"]',
-    ).value;
-    const bStatus = this.form.querySelector(
-      `input[name="book-status"][value="active"]`,
-    ).checked;
-    const bNumber = this.form.querySelector('input[name="book-number"]').value;
-    const bPrice = this.form.querySelector('input[name="book-price"]').value;
-
-    return {
-      title: bTitle,
-      author: bAuthor,
-      category: bCategory,
-      status: bStatus,
-      number: parseInt(bNumber, 10),
-      price: parseFloat(bPrice),
-    };
-  }
-
-  set formData({
-    id = '',
-    title = '',
-    author = '',
-    category = '',
-    status = false,
-    number = 0,
-    price = 0,
-  }) {
-    this.form.querySelector('#book-id').value = id;
-    this.form.querySelector('input[name="book-title"]').value = title;
-    this.form.querySelector('input[name="book-author"]').value = author;
-    this.form.querySelector('input[name="book-category"]').value = category;
-    this.form.querySelector(
-      `input[name="book-status"][value="active"]`,
-    ).checked = status;
-    this.form.querySelector(
-      `input[name="book-status"][value="inactive"]`,
-    ).checked = !status;
-    this.form.querySelector('input[name="book-number"]').value = number;
-    this.form.querySelector('input[name="book-price"]').value = price;
+  submitForm(handel, id) {
+    const bookData = collectData(this.form);
+    id ? handel(id, bookData) : handel(bookData);
   }
 
   displayData(books) {
+    this.books = books;
     while (this.table.firstChild) {
       this.table.removeChild(this.table.firstChild);
     }
@@ -172,16 +128,16 @@ class BookView {
     closeModal.addEventListener('click', () => {
       this.modal.classList.add('hidden');
       this.main.classList.remove('blur');
-      this.formData = {};
+      clearForm(this.form);
     });
   }
 
   bindAddBook(handel) {
-    this.form.addEventListener('submit', (e) => {
-      e.preventDefault();
+    const addBtn = this.form.querySelector('.save-btn');
+    addBtn.addEventListener('click', () => {
       if (this.checkValidForm()) {
-        handel(this.formData);
-        this.formData = {};
+        this.submitForm(handel);
+        clearForm(this.form);
         this.toggleModal(false);
         createToast('info', 'Insert Success!');
       } else createToast('warning', 'Insert Failed: Check your data!');
@@ -200,39 +156,46 @@ class BookView {
   }
 
   bindUpdateBook(handel) {
-    const btn = this.modal.querySelector('.update-btn');
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (this.checkValidForm()) {
-        handel(parseInt(this.idModal, 10), this.formData);
-        this.toggleModal(false);
-        createToast('info', 'Update Success!');
-        this.formData = {};
-      } else createToast('warning', 'Update Failed!');
-    });
-  }
-
-  bindUpdateModal() {
     let id;
+    let dataBook;
+
     this.table.addEventListener('click', (e) => {
       if (e.target.closest('.btn-edit')) {
-        id = e.target.closest('.btn-edit').dataset.id;
+        id = parseInt(e.target.closest('.btn-edit').dataset.id, 10);
+        dataBook = this.books.find((item) => item.id === id);
+
         this.clearInvalid();
         this.toggleModal(true);
         this.toggleBtn(false);
-        this.idModal = id;
 
-        const data = e.target.closest('tr').querySelectorAll('td');
-        this.formData = {
-          id: data[0].textContent.replace(/#/g, ''),
-          title: data[1].textContent,
-          author: data[2].textContent,
-          category: data[3].textContent,
-          status: data[4].firstElementChild.classList.contains('active'),
-          number: data[5].textContent,
-          price: data[6].textContent.replace(/\$/g, ''),
-        };
+        const bookForm = new FormData(this.form);
+        const radioInputs = this.form.querySelectorAll(`input[type="radio"]`);
+        for (const [key] of bookForm.entries()) {
+          const input = this.form.querySelector(`input[name=${key}]`);
+          switch (input.type) {
+            case 'radio':
+              for (const item of radioInputs) {
+                item.id === 'active' ? (item.checked = dataBook[key]) : '';
+                item.id === 'inactive' ? (item.checked = !dataBook[key]) : '';
+              }
+              break;
+            default:
+              input.value = dataBook[key];
+          }
+        }
+
+        console.log(collectData(this.form));
       }
+    });
+
+    const updateBtn = this.form.querySelector('.update-btn');
+    updateBtn.addEventListener('click', () => {
+      if (this.checkValidForm()) {
+        this.submitForm(handel, id);
+        this.toggleModal(false);
+        clearForm(this.form);
+        createToast('info', 'Update Success!');
+      } else createToast('warning', 'Update Failed!');
     });
   }
 
