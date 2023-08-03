@@ -1,16 +1,16 @@
 import { createToast } from '../views/components/handleToast';
 
 const inputValidationRules = {
-  'book-title': /^[\p{L}\d\s!@#$%^&*()[\]{};:'",.<>/?\\|-]{1,100}$/u,
-  'book-author': /^[\p{L}\s.&]{1,50}$/u,
-  'book-category': /^[\p{L}\d\s-]{1,50}$/u,
+  title: /^[\p{L}\d\s!@#$%^&*()[\]{};:'",.<>/?\\|-]{1,100}$/u,
+  author: /^[\p{L}\s.&]{1,50}$/u,
+  category: /^[\p{L}\d\s-]{1,50}$/u,
   inputMin: 5,
 };
 
 const inputCollection = {
-  'book-title': 'Title',
-  'book-author': 'Author',
-  'book-category': 'Category',
+  title: 'Title',
+  author: 'Author',
+  category: 'Category',
 };
 
 const errorMsg = {
