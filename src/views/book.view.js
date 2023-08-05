@@ -83,7 +83,7 @@ class BookView {
 
   checkValidForm() {
     const inputs = [...this.form.querySelectorAll('input')];
-    return !inputs.some((input) => input.classList.contains('invalid'));
+    return !inputs.some((input) => input.classList.contains('invalid')) && !inputs.some((input) => input.value === '');
   }
 
   clearInvalid() {
@@ -138,6 +138,7 @@ class BookView {
       if (this.checkValidForm()) {
         this.submitForm(handel);
         clearForm(this.form);
+
         this.toggleModal(false);
         createToast('info', 'Insert Success!');
       } else createToast('warning', 'Insert Failed: Check your data!');
@@ -183,8 +184,6 @@ class BookView {
               input.value = dataBook[key];
           }
         }
-
-        console.log(collectData(this.form));
       }
     });
 

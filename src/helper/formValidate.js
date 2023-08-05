@@ -4,6 +4,8 @@ const inputValidationRules = {
   title: /^[\p{L}\d\s!@#$%^&*()[\]{};:'",.<>/?\\|-]{1,100}$/u,
   author: /^[\p{L}\s.&]{1,50}$/u,
   category: /^[\p{L}\d\s-]{1,50}$/u,
+  email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  password: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
   inputMin: 5,
 };
 
@@ -11,6 +13,8 @@ const inputCollection = {
   title: 'Title',
   author: 'Author',
   category: 'Category',
+  email: 'Email',
+  password: 'Password'
 };
 
 const errorMsg = {
@@ -18,6 +22,7 @@ const errorMsg = {
   invalid: 'Please enter valid ',
   tooShort: ' must be longer than 5 characters.',
   negativeNum: 'Value must be greater than 0.',
+  passRule: 'The password must be at least \n8 characters long, \none uppercase/ lowercase, one digit.'
 };
 
 const handleValidate = (input, condition, injectClass) => {
@@ -31,7 +36,7 @@ const checkInput = (e, eventType) => {
   const inputValue = e.target.value;
   const inputName = e.target.name;
 
-  if (inputTarget.type === 'text') {
+  if (inputTarget.type === 'text' || inputTarget.type === 'password') {
     switch (eventType) {
       case 'focus': {
         handleValidate(inputTarget, true, 'invalid');
@@ -49,6 +54,11 @@ const checkInput = (e, eventType) => {
           break;
         }
         if (!inputValidate) {
+          if(inputName === 'password') {
+            createToast('error', errorMsg.passRule);
+            handleValidate(inputTarget, inputValidate, 'invalid');
+            break;
+          }
           createToast('error', errorMsg.invalid + inputCollection[inputName]);
           handleValidate(inputTarget, inputValidate, 'invalid');
           break;
