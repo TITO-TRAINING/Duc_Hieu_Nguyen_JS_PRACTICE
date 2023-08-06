@@ -1,5 +1,5 @@
 import Book from '../model/book.model';
-import api from '../api/books';
+import api from '../api/api';
 import { createToast } from '../views/components/handleToast';
 
 class BookService {

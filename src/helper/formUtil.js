@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
+
 export function clearForm(form) {
   const inputs = form.querySelectorAll('input');
   for (const item of inputs) {
@@ -8,18 +8,18 @@ export function clearForm(form) {
 
 export function collectData(form) {
   const data = {};
-  const bookForm = new FormData(form);
-  for (const key of bookForm.keys()) {
+  const dataForm = new FormData(form);
+  for (const key of dataForm.keys()) {
     const input = form.querySelector(`[name="${key}"]`);
     switch (input.type) {
       case 'number':
-        data[key] = parseInt(bookForm.get(key), 10);
+        data[key] = parseInt(dataForm.get(key), 10);
         break;
       case 'radio':
         data[key] = input.checked;
         break;
       default:
-        data[key] = bookForm.get(key);
+        data[key] = dataForm.get(key);
     }
   }
   return data;
