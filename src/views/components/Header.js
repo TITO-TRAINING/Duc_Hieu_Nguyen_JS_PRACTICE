@@ -14,6 +14,9 @@ function Header() {
               <li class="nav-link">Home</li>
               <li class="nav-link">Contact</li>
               <li class="nav-link">Repo</li>
+              <li class="nav-link logout-link">
+                <i class="ti-shift-right"></i>
+              </li>
               </ul>
           </nav>
         </div>

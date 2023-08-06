@@ -1,3 +1,7 @@
+import AuthController from "./auth.controller";
+import AuthService from '../services/auth.service';
+import AuthView from '../views/auth.view';
+
 class BookController {
   constructor(bookServices, bookViews) {
     this.bookServices = bookServices;
@@ -16,6 +20,7 @@ class BookController {
     this.bookViews.bindToggleStatus(this.handelToggle);
     this.bookViews.bindSearch(this.handelSearch);
     this.bookViews.bindUpdatePage(this.handlePaginate);
+    this.bookViews.bindLogout(this.handelLogout);
   }
 
   onDataChanged = (books) => {
@@ -53,6 +58,20 @@ class BookController {
 
   handelSearch = (key) => {
     this.bookServices.search(key);
+  };
+
+  handelLogout = () => {
+    const BookView = this.bookViews;
+    const BookService = this.bookServices;
+
+    localStorage.setItem('isAuth', false);
+    new AuthController(
+      new AuthView(),
+      new AuthService(),
+      BookController,
+      BookView,
+      BookService,
+    );
   };
 }
 

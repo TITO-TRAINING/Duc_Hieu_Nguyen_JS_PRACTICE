@@ -11,6 +11,7 @@ import { clearForm, collectData } from '../helper/formUtil';
 class BookView {
   constructor() {
     this.app = document.querySelector('#root');
+    this.app.innerHTML = '';
     this.app.innerHTML += BookModal({});
 
     this.main = document.createElement('div');
@@ -83,7 +84,10 @@ class BookView {
 
   checkValidForm() {
     const inputs = [...this.form.querySelectorAll('input')];
-    return !inputs.some((input) => input.classList.contains('invalid')) && !inputs.some((input) => input.value === '');
+    return (
+      !inputs.some((input) => input.classList.contains('invalid')) &&
+      !inputs.some((input) => input.value === '')
+    );
   }
 
   clearInvalid() {
@@ -242,6 +246,13 @@ class BookView {
         const { index } = e.target.closest('.page-link').dataset;
         handel(parseInt(index, 10));
       }
+    });
+  }
+
+  bindLogout(handel) {
+    const btn = this.app.querySelector('.logout-link');
+    btn.addEventListener('click', () => {
+      handel();
     });
   }
 }

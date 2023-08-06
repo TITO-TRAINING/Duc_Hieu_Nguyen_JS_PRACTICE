@@ -1,11 +1,12 @@
-import { collectData } from "../helper/formUtil";
-import validate from "../helper/formValidate";
-import LoginForm from "./modules/Auth/AuthLogin";
-import RegisterForm from "./modules/Auth/AuthRegister";
+import { collectData } from '../helper/formUtil';
+import validate from '../helper/formValidate';
+import LoginForm from './modules/Auth/AuthLogin';
+import RegisterForm from './modules/Auth/AuthRegister';
 
 class AuthView {
   constructor() {
     this.app = document.querySelector('#root');
+    this.app.innerHTML = '';
 
     this.container = document.createElement('div');
     this.container.classList.add('container');
@@ -27,7 +28,10 @@ class AuthView {
 
   checkValidForm(form) {
     const inputs = [...form.querySelectorAll('input')];
-    return !inputs.some((input) => input.classList.contains('invalid')) && !inputs.some((input) => input.value === '');
+    return (
+      !inputs.some((input) => input.classList.contains('invalid')) &&
+      !inputs.some((input) => input.value === '')
+    );
   }
 
   clearInvalid() {
@@ -36,24 +40,23 @@ class AuthView {
   }
 
   bindLogin(handel) {
-    this.loginForm.addEventListener('submit', (e)=> {
-      console.log('check')
+    this.loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      if(this.checkValidForm(this.loginForm)) {
-        const formData = collectData(this.loginForm) ;
+      if (this.checkValidForm(this.loginForm)) {
+        const formData = collectData(this.loginForm);
         handel(formData);
       }
     });
   }
 
   bindRegister(handel) {
-    this.registerForm.addEventListener('submit', (e)=> {
+    this.registerForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      if(this.checkValidForm(this.registerForm)) {
-        const formData = collectData(this.registerForm) ;
+      if (this.checkValidForm(this.registerForm)) {
+        const formData = collectData(this.registerForm);
         handel(formData);
       }
-    })
+    });
   }
 }
 
